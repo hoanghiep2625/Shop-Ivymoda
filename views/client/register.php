@@ -32,18 +32,18 @@
             <a href="#" class="text-sm font-semibold text-gray-800 hover:text-red-500">VỀ CHÚNG TÔI</a>
         </div>
         <div class="flex items-center">
-            <a href="#"><img src="./image/logo.png" alt="Logo" class="w-32 h-auto" /></a>
+            <a href="#"><img src="./public/image/logo.png" alt="Logo" class="w-32 h-auto" /></a>
         </div>
         <div class="flex items-center">
             <div class="w-80 h-9 border">
                 <div class="flex py-2 px-2">
-                    <img src="./icon/search.svg" alt="" class="w-4 h-auto" />
+                    <img src="./public/icon/search.svg" alt="" class="w-4 h-auto" />
                     <input type="text" placeholder="TÌM KIẾM SẢN PHẨM" class="text-sm outline-none pl-2" />
                 </div>
             </div>
-            <a href="#" class="ml-4"><img src="./icon/headphone.svg" alt="Headphone" class="w-5 h-auto" /></a>
-            <a href="#" class="ml-4"><img src="./icon/user.svg" alt="User" class="w-5 h-auto" /></a>
-            <a href="#" class="ml-4 mr-8"><img src="./icon/cart.svg" alt="Cart" class="w-5 h-auto" /></a>
+            <a href="#" class="ml-4"><img src="./public/icon/headphone.svg" alt="Headphone" class="w-5 h-auto" /></a>
+            <a href="#" class="ml-4"><img src="./public/icon/user.svg" alt="User" class="w-5 h-auto" /></a>
+            <a href="#" class="ml-4 mr-8"><img src="./public/icon/cart.svg" alt="Cart" class="w-5 h-auto" /></a>
         </div>
     </header>
     <hr />
@@ -174,16 +174,16 @@
     <div class="grid grid-cols-[1fr_2fr_1fr] gap-12 mt-12">
         <div class="col-span-1">
             <div class="flex justify-between items-center">
-                <img src="./image/logo.png" alt="" class="w-28 h-auto mr-4" />
-                <img src="./image/dmca.png" alt="" class="w-15 h-5 mr-4" />
-                <img src="./image/congthuong.png" alt="" class="w-15 h-8" />
+                <img src="./public/image/logo.png" alt="" class="w-28 h-auto mr-4" />
+                <img src="./public/image/dmca.png" alt="" class="w-15 h-5 mr-4" />
+                <img src="./public/image/congthuong.png" alt="" class="w-15 h-8" />
             </div>
             <div class="grid grid-cols-5 py-5 flex items-center">
-                <img src="./image/ic_fb.svg" class="w-3 h-auto" alt="" />
-                <img src="./image/ic_gg.svg" class="w-5 h-auto" alt="" />
-                <img src="./image/ic_instagram.svg" class="w-5 h-auto" alt="" />
-                <img src="./image/ic_pinterest.svg" class="w-5 h-auto" alt="" />
-                <img src="./image/ic_ytb.svg" class="w-5 h-auto" alt="" />
+                <img src="./public/image/ic_fb.svg" class="w-3 h-auto" alt="" />
+                <img src="./public/image/ic_gg.svg" class="w-5 h-auto" alt="" />
+                <img src="./public/image/ic_instagram.svg" class="w-5 h-auto" alt="" />
+                <img src="./public/image/ic_pinterest.svg" class="w-5 h-auto" alt="" />
+                <img src="./public/image/ic_ytb.svg" class="w-5 h-auto" alt="" />
             </div>
             <div class="
             bg-black
@@ -253,8 +253,8 @@
                 </div>
             </div>
             <div class="text-2xl font-semibold py-4">Download App</div>
-            <img src="./image/appstore.png" class="w-42 h-auto pb-2" alt="" />
-            <img src="./image/googleplay.png" class="w-42 h-auto pt-2" alt="" />
+            <img src="./public/image/appstore.png" class="w-42 h-auto pb-2" alt="" />
+            <img src="./public/image/googleplay.png" class="w-42 h-auto pt-2" alt="" />
         </div>
     </div>
     <hr>

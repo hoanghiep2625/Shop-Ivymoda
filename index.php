@@ -10,6 +10,9 @@ switch ($action) {
     case 'home':
         $userController->showAll();
         break;
+    case 'register':
+        $userController->showFormReg();
+        break;
     default:
         echo "case not match";
 }

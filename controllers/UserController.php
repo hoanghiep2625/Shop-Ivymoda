@@ -8,6 +8,9 @@ class UserController
         $this->UserModel = new UserModel();
     }
     public function showAll(){
-        include "./views/client/home.php";
+        include "./views/client/login.php";
+    }
+    public function showFormReg(){
+        include "./views/client/register.php";
     }
 }
