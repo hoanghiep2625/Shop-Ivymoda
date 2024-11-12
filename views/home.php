@@ -120,7 +120,7 @@
         <p class="text-sm py-2 font-[300]">Chính sách đổi trả</p>
         <p class="text-sm py-2 font-[300]">Chính sách bảo hàng</p>
         <p class="text-sm py-2 font-[300]">
-          Chonhs sách giao nhận vận chuyển
+          Chính sách giao nhận vận chuyển
         </p>
         <p class="text-sm py-2 font-[300]">Chính sách thẻ thành viên</p>
         <p class="text-sm py-2 font-[300]">Q&A</p>
