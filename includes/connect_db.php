@@ -4,7 +4,7 @@ function connectDB()
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $myDB = "trungthanh_ph52146";
+    $myDB = "shopivymoda";
 
     try {
         $conn = new PDO("mysql:host=$servername;dbname=$myDB", $username, $password);

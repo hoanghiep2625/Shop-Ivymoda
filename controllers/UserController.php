@@ -1,11 +1,11 @@
 <?php
-include './models/SupModel.php';
+include './models/UserModel.php';
 class YourController
 {
-    public $LunaModel;
+    public $UserModel;
     public function __construct()
     {
-        $this->LunaModel = new YourModel();
+        $this->UserModel = new YourModel();
     }
     public function showAll(){
         include "./views/home.php";
