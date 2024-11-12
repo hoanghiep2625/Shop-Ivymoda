@@ -96,7 +96,7 @@
                     bạn, quá trình mua hàng trên ivymoda.com sẽ là một trải nghiệm
                     thú vị và nhanh chóng hơn!</p>
                 <div class="bg-black w-[100%] p-3 flex justify-center items-center rounded-br-2xl rounded-tl-2xl my-8">
-                    <a href="?action=register">
+                    <a href="?action=showformreg">
                         <p class="text-white font-semibold text-lg">Đăng ký</p>
                     </a>
                 </div>
