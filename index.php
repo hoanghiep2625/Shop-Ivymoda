@@ -1,14 +1,14 @@
 <?php
 include "./includes/help.php";
-include "./controllers/SupController.php";
+include "./controllers/UserController.php";
 
 $action =  isset($_GET['action']) ? $_GET['action'] : 'home';
 
-$yourController = new YourController();
+$userController = new UserController();
 
 switch ($action) {
     case 'home':
-        $yourController->showAll();
+        $userController->showAll();
         break;
     default:
         echo "case not match";
