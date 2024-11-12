@@ -54,8 +54,8 @@
         <div class="mb-5">
           <p class="text-[14px] text-gray-500"> Nếu bạn đã có tài khoản, hãy đăng nhập để tích luỹ điểm thành <br>
           <p class="text-[14px] text-gray-500">viên và nhận
-            được những ưuu
-            đãiiiiii
+            được những ưu
+            đãi
             tốt
             hơn!</p>
           </p>
@@ -70,7 +70,7 @@
       </div>
       <div class="flex flex-col items-center">
         <p></p>
-        <p>Nếuu bạn chữa có tài khoản trên ivymoda.com</p>
+        <p>Nếu bạn chữa có tài khoản trên ivymoda.com</p>
 
       </div>
     </div>
