@@ -55,17 +55,23 @@
             <!-- Cột trái -->
             <div class="flex flex-col">
                 <p class="font-[500] text-[1rem] py-4">Thông tin khách hàng</p>
+
+                <form action="?action=register" method="POST">
+
+                
                 <div class="grid grid-cols-2 gap-8">
                     <div>
                         <p>Họ: <span class="text-red-500">*</span></p>
                         <div class="border w-[98%] h-11 flex items-center p-4 mb-6">
                             <input type="text" placeholder="Họ.." class="text-[14px] outline-none w-full">
+                            <p class="text-danger"> <?php echo !empty($_SESSION['error']['ho']) ? $_SESSION['error']['ho'] : '';?></p>
                         </div>
                     </div>
                     <div>
                         <p>Tên: <span class="text-red-500">*</span></p>
                         <div class="w-[98%] border h-11 flex items-center p-4 mb-6">
                             <input type="text" placeholder="Tên.." class="text-[14px] outline-none w-full">
+                            <p class="text-danger"> <?php echo !empty($_SESSION['error']['ten']) ? $_SESSION['error']['ten'] : '';?></p>
                         </div>
                     </div>
                 </div>
@@ -73,13 +79,15 @@
                     <div>
                         <p>Email: <span class="text-red-500">*</span></p>
                         <div class="border w-[98%] h-11 flex items-center p-4 mb-6">
-                            <input type="text" placeholder="Email.." class="text-[14px] outline-none w-full">
+                            <input type="text" name="email" placeholder="Email.." class="text-[14px] outline-none w-full">
+                            <p class="text-danger"> <?php echo !empty($_SESSION['error']['email']) ? $_SESSION['error']['email'] : '';?></p>
                         </div>
                     </div>
                     <div>
                         <p>Điện thoại: <span class="text-red-500">*</span></p>
                         <div class="w-[98%] border h-11 flex items-center p-4 mb-6">
                             <input type="text" placeholder="Điện thoại.." class="text-[14px] outline-none w-full">
+                            <p class="text-danger"> <?php echo !empty($_SESSION['error']['sodt']) ? $_SESSION['error']['sodt'] : '';?></p>
                         </div>
                     </div>
                 </div>
@@ -89,6 +97,7 @@
                         <p>Ngày sinh: <span class="text-red-500">*</span></p>
                         <div class="border w-[98%] h-11 flex items-center p-4 mb-6">
                             <input type="date" class="text-[14px] outline-none w-full">
+                            <p class="text-danger"> <?php echo !empty($_SESSION['error']['ngaysinh']) ? $_SESSION['error']['ngaysinh'] : '';?></p>
                         </div>
                     </div>
                     <div>
@@ -98,6 +107,7 @@
                                 <option value="nam">Nam</option>
                                 <option value="nu">Nữ</option>
                                 <option value="khac">Khác</option>
+                                <p class="text-danger"> <?php echo !empty($_SESSION['error']['gioitinh']) ? $_SESSION['error']['gioitinh'] : '';?></p>
                             </select>
                         </div>
                     </div>
@@ -109,6 +119,7 @@
                         <div class="border w-[98%] h-11 flex items-center p-4 mb-6">
                             <select class="text-[14px] outline-none w-full" id="city" aria-label=".form-select-sm">
                                 <option value="" selected>Chọn tỉnh thành</option>
+                                <p class="text-danger"> <?php echo !empty($_SESSION['error']['tinhthanh']) ? $_SESSION['error']['tinhthanh'] : '';?></p>
                             </select>
                         </div>
                     </div>
@@ -117,6 +128,7 @@
                         <div class="w-[98%] border h-11 flex items-center p-4 mb-6">
                             <select class="text-[14px] outline-none w-full" id="district" aria-label=".form-select-sm">
                                 <option value="" selected>Chọn quận huyện</option>
+                                <p class="text-danger"> <?php echo !empty($_SESSION['error']['quanhuyen']) ? $_SESSION['error']['quanhuyen'] : '';?></p>
                             </select>
                         </div>
                     </div>
@@ -125,12 +137,14 @@
                 <div class="border w-[99%] h-11 flex items-center p-4 mb-4">
                     <select class="text-[14px] outline-none w-full" id="ward" aria-label=".form-select-sm">
                         <option value="" selected>Chọn phường xã</option>
+                        <p class="text-danger"> <?php echo !empty($_SESSION['error']['phuongxa']) ? $_SESSION['error']['phuongxa'] : '';?></p>
                     </select>
                 </div>
                 <div>
                     <p>Địa chỉ: <span class="text-red-500">*</span></p>
                     <div class="border w-[99%] h-[80px] flex items-center p-4 mb-6">
                         <input type="text" class="text-[14px] outline-none w-full">
+                        <p class="text-danger"> <?php echo !empty($_SESSION['error']['diachi']) ? $_SESSION['error']['diachi'] : '';?></p>
                     </div>
                 </div>
             </div>
@@ -142,12 +156,14 @@
                     <p>Mật khẩu: <span class="text-red-500">*</span></p>
                     <div class="w-[100%] border h-11 flex items-center p-4 mb-6">
                         <input type="text" placeholder="Mật khẩu.." class="text-[14px] outline-none w-full">
+                        <p class="text-danger"> <?php echo !empty($_SESSION['error']['password']) ? $_SESSION['error']['password'] : '';?></p>
                     </div>
                 </div>
                 <div>
                     <p>Nhập lại mật khẩu: <span class="text-red-500">*</span></p>
                     <div class="w-[100%] border h-11 flex items-center p-4 mb-6">
                         <input type="text" placeholder="Nhập lại mật khẩu.." class="text-[14px] outline-none w-full">
+                        <p class="text-danger"> <?php echo !empty($_SESSION['error']['xacnhanpassword']) ? $_SESSION['error']['xacnhanpassword'] : '';?></p>
                     </div>
                 </div>
                 <div class="flex items-center">
@@ -161,11 +177,12 @@
                 </div>
                 <div class="bg-black w-[100%] p-3 flex justify-center items-center rounded-br-2xl rounded-tl-2xl my-8">
                     <a href="#">
-                        <p class="text-white font-semibold text-lg">Đăng ký</p>
+                        <input type="submit" class="text-white font-semibold text-lg" value="Đăng Kí">
                     </a>
                 </div>
             </div>
         </div>
+        </form>
     </article>
 
     <hr />
