@@ -14,10 +14,6 @@ class UserController
         include "./views/client/register.php";
     }
     public function register(){
-        if (isset($_POST['return-login'])) {
-            header('location:' . BASE_URL);
-            exit();
-        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             session_start();
             $ho = $_POST['ho'];
@@ -79,10 +75,6 @@ class UserController
                     $error['email'] = "Tài khoản đã tồn tại";
                 }
             }
-
-            
-
-
             if (empty($error)) { // xứ lí thêm dữ liệu vào database
                 if ($this->UserModel->register($ho, $ten, $email, $sodt, $ngaysinh, $gioitinh, $tinhthanh, $quanhuyen, $phuongxa,$diachi,$password)) {
 

@@ -2,8 +2,8 @@
 function connectDB()
 {
     $servername = "localhost";
-    $username = "root";
-    $password = "";
+    $username = "duan1";
+    $password = "duan1";
     $myDB = "shopivymoda";
 
     try {
