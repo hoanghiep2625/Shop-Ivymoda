@@ -9,14 +9,11 @@ class UserModel
     }
     public function register($ho, $ten, $email, $sodt, $ngaysinh, $gioitinh, $tinhthanh, $quanhuyen, $phuongxa, $diachi, $password)
     {
-        // Mã hóa mật khẩu trước khi lưu vào cơ sở dữ liệu
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        // Câu lệnh SQL để chèn dữ liệu vào bảng `users`
         $sql = "INSERT INTO users (first_name, name, email, phone, date, sex, city, district, commune, address, password) 
                     VALUES (:ho, :ten, :email, :sodt, :ngaysinh, :gioitinh, :tinhthanh, :quanhuyen, :phuongxa, :diachi, :password)";
 
-        // Thực thi câu lệnh chuẩn bị (prepared statement) để chống SQL Injection
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':ho', $ho);
         $stmt->bindParam(':ten', $ten);

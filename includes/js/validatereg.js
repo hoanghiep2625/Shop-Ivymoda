@@ -1,5 +1,4 @@
 document.querySelector("form").addEventListener("submit", function (event) {
-  // Ngăn việc gửi form nếu không hợp lệ
   if (!validateForm()) {
     event.preventDefault();
   }
@@ -8,7 +7,6 @@ document.querySelector("form").addEventListener("submit", function (event) {
 function validateForm() {
   let isValid = true;
 
-  // Lấy các trường cần kiểm tra
   const hoInput = document.querySelector("#ho input");
   const tenInput = document.querySelector("#ten input");
   const emailInput = document.querySelector("#inemail");
@@ -37,7 +35,6 @@ function validateForm() {
   const phoneRegex =
     /^(0|\+84)(3[2-9]|5[2689]|7[06-9]|8[1-689]|9[0-46-9])\d{7}$/;
 
-  // Kiểm tra các trường input
   if (hoInput.value.trim() === "") {
     hoInput.closest("div").classList.add("border-red-500");
     hoError.textContent = "Không được để trống";
@@ -58,7 +55,6 @@ function validateForm() {
     tenError.classList.add("hidden");
   }
 
-  // Kiểm tra email: không được để trống và phải đúng định dạng
   if (emailInput.value.trim() === "") {
     emailInput.closest("div").classList.add("border-red-500");
     emailError.textContent = "Không được để trống";

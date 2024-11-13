@@ -28,14 +28,7 @@ class UserController
             $quanhuyen = $_POST['district'];
             $phuongxa = $_POST['ward'];
             $password = $_POST['inpassword'];
-            $xacnhanpassword = $_POST['inrepass'];
             $diachi = $_POST['inaddress'];
-
-            // Validate password match
-            if ($password !== $xacnhanpassword) {
-                echo "Mật khẩu không khớp. Vui lòng nhập lại.";
-                return;
-            }
 
             if ($this->UserModel->register($ho, $ten, $email, $sodt, $ngaysinh, $gioitinh, $tinhthanh, $quanhuyen, $phuongxa, $diachi, $password)) {
                 header('location: ?action=login');
