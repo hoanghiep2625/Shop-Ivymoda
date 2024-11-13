@@ -1,4 +1,5 @@
 <?php
+session_start();
 function connectDB()
 {
     $servername = "localhost";
@@ -13,5 +14,6 @@ function connectDB()
         return $conn;
     } catch (PDOException $e) {
         echo "Connection failed: " . $e->getMessage();
+        return null;
     }
 }

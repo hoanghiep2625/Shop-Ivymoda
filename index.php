@@ -1,7 +1,7 @@
 <?php
-include "./includes/help.php";
-include "./controllers/UserController.php";
-include "./controllers/WebController.php";
+require_once "./includes/help.php";
+require_once "./controllers/UserController.php";
+require_once "./controllers/WebController.php";
 
 
 $action =  isset($_GET['action']) ? $_GET['action'] : 'home';
@@ -12,13 +12,19 @@ $webController = new WebController();
 
 switch ($action) {
     case 'home':
-        $userController->showAll();
+        $webController->trangchu();
         break;
-    case 'showformreg':
-        $userController->showFormReg();
+    case 'showFormreg':
+        $webController->showFormreg();
         break;
     case 'register':
         $userController->register();
+        break;
+    case 'showFormlogin':
+        $webController->showFormlogin();
+        break;
+    case 'login':
+        $userController->login();
         break;
     case 'chinhsachdoitra':
         $webController->chinhsachdoitra();

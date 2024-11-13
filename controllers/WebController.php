@@ -11,4 +11,16 @@ class WebController
     {
         include "./views/client/chinh-sach-doi-tra.php";
     }
+    public function showFormlogin()
+    {
+        include "./views/client/login.php";
+    }
+    public function trangchu()
+    {
+        include "./views/client/home.php";
+    }
+    public function showFormreg()
+    {
+        include "./views/client/register.php";
+    }
 }

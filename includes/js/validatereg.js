@@ -34,10 +34,20 @@ function validateForm() {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const phoneRegex =
     /^(0|\+84)(3[2-9]|5[2689]|7[06-9]|8[1-689]|9[0-46-9])\d{7}$/;
-
-  if (hoInput.value.trim() === "") {
+  const RegexKytudacbiet =
+    /^[a-zA-ZàáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ\s]+$/;
+  const Regexnoidung =
+    /^[a-zA-Z0-9àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ,.'":;\s]+$/;
+  const hoValue = hoInput.value.trim();
+  const diachiValue = diachiInput.value.trim();
+  if (hoValue === "") {
     hoInput.closest("div").classList.add("border-red-500");
     hoError.textContent = "Không được để trống";
+    hoError.classList.remove("hidden");
+    isValid = false;
+  } else if (!RegexKytudacbiet.test(hoValue)) {
+    hoInput.closest("div").classList.add("border-red-500");
+    hoError.textContent = "Không được có ký tự đặc biệt và số";
     hoError.classList.remove("hidden");
     isValid = false;
   } else {
@@ -48,6 +58,11 @@ function validateForm() {
   if (tenInput.value.trim() === "") {
     tenInput.closest("div").classList.add("border-red-500");
     tenError.textContent = "Không được để trống";
+    tenError.classList.remove("hidden");
+    isValid = false;
+  } else if (!RegexKytudacbiet.test(tenInput.value.trim())) {
+    tenInput.closest("div").classList.add("border-red-500");
+    tenError.textContent = "Không được có ký tự đặc biệt và số";
     tenError.classList.remove("hidden");
     isValid = false;
   } else {
@@ -69,6 +84,7 @@ function validateForm() {
     emailInput.closest("div").classList.remove("border-red-500");
     emailError.classList.add("hidden");
   }
+
   if (sodtInput.value.trim() === "") {
     sodtInput.closest("div").classList.add("border-red-500");
     sodtError.textContent = "Không được để trống";
@@ -124,9 +140,14 @@ function validateForm() {
     phuongxaError.classList.add("hidden");
   }
 
-  if (diachiInput.value.trim() === "") {
+  if (diachiValue === "") {
     diachiInput.closest("div").classList.add("border-red-500");
     diachiError.textContent = "Không được để trống";
+    diachiError.classList.remove("hidden");
+    isValid = false;
+  } else if (!Regexnoidung.test(diachiValue)) {
+    diachiInput.closest("div").classList.add("border-red-500");
+    diachiError.textContent = "Địa chỉ không hợp lệ";
     diachiError.classList.remove("hidden");
     isValid = false;
   } else {
