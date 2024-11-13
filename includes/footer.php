@@ -6,7 +6,7 @@
                 <img src="./public/image/dmca.png" alt="" class="w-15 h-5 mr-4" />
                 <img src="./public/image/congthuong.png" alt="" class="w-15 h-8" />
             </div>
-            <div class="grid grid-cols-5 py-5 flex items-center">
+            <div class="grid grid-cols-5 py-5 items-center">
                 <img src="./public/image/ic_fb.svg" class="w-3 h-auto" alt="" />
                 <img src="./public/image/ic_gg.svg" class="w-5 h-auto" alt="" />
                 <img src="./public/image/ic_instagram.svg" class="w-6 h-auto" alt="" />

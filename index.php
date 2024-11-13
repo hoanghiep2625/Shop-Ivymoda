@@ -30,5 +30,5 @@ switch ($action) {
         $webController->chinhsachdoitra();
         break;
     default:
-        echo "case not match";
+        echo "Không có trang này";
 }
