@@ -1,5 +1,5 @@
 <?php
-include './includes/connect_db.php';
+require_once './includes/connect_db.php';
 class UserModel
 {
     public $conn;

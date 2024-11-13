@@ -1,10 +1,14 @@
 <?php
 include "./includes/help.php";
 include "./controllers/UserController.php";
+include "./controllers/WebController.php";
+
 
 $action =  isset($_GET['action']) ? $_GET['action'] : 'home';
 
 $userController = new UserController();
+$webController = new WebController();
+
 
 switch ($action) {
     case 'home':
@@ -15,6 +19,9 @@ switch ($action) {
         break;
     case 'register':
         $userController->register();
+        break;
+    case 'chinhsachdoitra':
+        $webController->chinhsachdoitra();
         break;
     default:
         echo "case not match";
