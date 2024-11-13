@@ -1,7 +1,7 @@
 document.querySelector("form").addEventListener("submit", function (event) {
-  // Kiểm tra tính hợp lệ của form
+  // Ngăn việc gửi form nếu không hợp lệ
   if (!validateForm()) {
-    event.preventDefault(); // Ngừng hành động gửi form nếu không hợp lệ
+    event.preventDefault();
   }
 });
 
@@ -11,7 +11,7 @@ function validateForm() {
   // Lấy các trường cần kiểm tra
   const hoInput = document.querySelector("#ho input");
   const tenInput = document.querySelector("#ten input");
-  const emailInput = document.querySelector("#email input");
+  const emailInput = document.querySelector("#inemail");
   const sodtInput = document.querySelector("#sodt input");
   const ngaysinhInput = document.querySelector("#ngaysinh input");
   const tinhthanhInput = document.querySelector("#tinhthanh select");
@@ -20,6 +20,7 @@ function validateForm() {
   const passwordInput = document.querySelector("#password input");
   const diachiInput = document.querySelector("#diachi input");
   const xacnhanpasswordInput = document.querySelector("#xacnhanpassword input");
+
   const hoError = document.querySelector("#ho-error");
   const tenError = document.querySelector("#ten-error");
   const emailError = document.querySelector("#email-error");
@@ -32,18 +33,24 @@ function validateForm() {
   const diachiError = document.querySelector("#diachi-error");
   const xacnhanpasswordError = document.querySelector("#xacnhanpassword-error");
 
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const phoneRegex =
+    /^(0|\+84)(3[2-9]|5[2689]|7[06-9]|8[1-689]|9[0-46-9])\d{7}$/;
+
   // Kiểm tra các trường input
   if (hoInput.value.trim() === "") {
     hoInput.closest("div").classList.add("border-red-500");
-    hoError.classList.remove("hidden"); // Hiển thị thông báo lỗi
+    hoError.textContent = "Không được để trống";
+    hoError.classList.remove("hidden");
     isValid = false;
   } else {
     hoInput.closest("div").classList.remove("border-red-500");
-    hoError.classList.add("hidden"); // Ẩn thông báo lỗi khi trường hợp hợp lệ
+    hoError.classList.add("hidden");
   }
 
   if (tenInput.value.trim() === "") {
     tenInput.closest("div").classList.add("border-red-500");
+    tenError.textContent = "Không được để trống";
     tenError.classList.remove("hidden");
     isValid = false;
   } else {
@@ -51,17 +58,29 @@ function validateForm() {
     tenError.classList.add("hidden");
   }
 
+  // Kiểm tra email: không được để trống và phải đúng định dạng
   if (emailInput.value.trim() === "") {
     emailInput.closest("div").classList.add("border-red-500");
+    emailError.textContent = "Không được để trống";
+    emailError.classList.remove("hidden");
+    isValid = false;
+  } else if (!emailRegex.test(emailInput.value.trim())) {
+    emailInput.closest("div").classList.add("border-red-500");
+    emailError.textContent = "Email không hợp lệ";
     emailError.classList.remove("hidden");
     isValid = false;
   } else {
     emailInput.closest("div").classList.remove("border-red-500");
     emailError.classList.add("hidden");
   }
-
   if (sodtInput.value.trim() === "") {
     sodtInput.closest("div").classList.add("border-red-500");
+    sodtError.textContent = "Không được để trống";
+    sodtError.classList.remove("hidden");
+    isValid = false;
+  } else if (!phoneRegex.test(sodtInput.value.trim())) {
+    sodtInput.closest("div").classList.add("border-red-500");
+    sodtError.textContent = "Số điện thoại không hợp lệ";
     sodtError.classList.remove("hidden");
     isValid = false;
   } else {
@@ -71,6 +90,7 @@ function validateForm() {
 
   if (ngaysinhInput.value.trim() === "") {
     ngaysinhInput.closest("div").classList.add("border-red-500");
+    ngaysinhError.textContent = "Không được để trống";
     ngaysinhError.classList.remove("hidden");
     isValid = false;
   } else {
@@ -80,6 +100,7 @@ function validateForm() {
 
   if (tinhthanhInput.value.trim() === "") {
     tinhthanhInput.closest("div").classList.add("border-red-500");
+    tinhthanhError.textContent = "Không được để trống";
     tinhthanhError.classList.remove("hidden");
     isValid = false;
   } else {
@@ -89,6 +110,7 @@ function validateForm() {
 
   if (quanhuyenInput.value.trim() === "") {
     quanhuyenInput.closest("div").classList.add("border-red-500");
+    quanhuyenError.textContent = "Không được để trống";
     quanhuyenError.classList.remove("hidden");
     isValid = false;
   } else {
@@ -98,6 +120,7 @@ function validateForm() {
 
   if (phuongxaInput.value.trim() === "") {
     phuongxaInput.closest("div").classList.add("border-red-500");
+    phuongxaError.textContent = "Không được để trống";
     phuongxaError.classList.remove("hidden");
     isValid = false;
   } else {
@@ -107,6 +130,7 @@ function validateForm() {
 
   if (diachiInput.value.trim() === "") {
     diachiInput.closest("div").classList.add("border-red-500");
+    diachiError.textContent = "Không được để trống";
     diachiError.classList.remove("hidden");
     isValid = false;
   } else {
@@ -116,6 +140,22 @@ function validateForm() {
 
   if (passwordInput.value.trim() === "") {
     passwordInput.closest("div").classList.add("border-red-500");
+    passwordError.textContent = "Không được để trống";
+    passwordError.classList.remove("hidden");
+    isValid = false;
+  } else if (passwordInput.value.trim().length < 6) {
+    passwordInput.closest("div").classList.add("border-red-500");
+    passwordError.textContent = "Mật khẩu phải có ít nhất 6 ký tự";
+    passwordError.classList.remove("hidden");
+    isValid = false;
+  } else if (!/[a-zA-Z]/.test(passwordInput.value.trim())) {
+    passwordInput.closest("div").classList.add("border-red-500");
+    passwordError.textContent = "Mật khẩu phải có ít nhất 1 chữ";
+    passwordError.classList.remove("hidden");
+    isValid = false;
+  } else if (!/\d/.test(passwordInput.value.trim())) {
+    passwordInput.closest("div").classList.add("border-red-500");
+    passwordError.textContent = "Mật khẩu phải có ít nhất 1 số";
     passwordError.classList.remove("hidden");
     isValid = false;
   } else {
@@ -125,6 +165,12 @@ function validateForm() {
 
   if (xacnhanpasswordInput.value.trim() === "") {
     xacnhanpasswordInput.closest("div").classList.add("border-red-500");
+    xacnhanpasswordError.textContent = "Không được để trống";
+    xacnhanpasswordError.classList.remove("hidden");
+    isValid = false;
+  } else if (xacnhanpasswordInput.value.trim() !== passwordInput.value.trim()) {
+    xacnhanpasswordInput.closest("div").classList.add("border-red-500");
+    xacnhanpasswordError.textContent = "Mật khẩu nhập lại không khớp";
     xacnhanpasswordError.classList.remove("hidden");
     isValid = false;
   } else {

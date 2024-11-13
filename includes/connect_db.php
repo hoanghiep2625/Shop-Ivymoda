@@ -15,4 +15,3 @@ function connectDB()
         echo "Connection failed: " . $e->getMessage();
     }
 }
-define('BASE_URL', 'http://localhost/Nhom-1/');

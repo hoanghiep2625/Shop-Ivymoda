@@ -24,17 +24,15 @@
                         <input type="checkbox" class="mr-2">
                         <p class="text-[14px]">Ghi nhớ đăng nhập</p>
                     </div>
-                    <p class="underline text-[14px] cursor-pointer">Quên mật khẩu?</p>
+                    <p class="underline text-[14px] cursor-pointer hover:text-orange-600">Quên mật khẩu?</p>
                 </div>
                 <div class="flex justify-between items-center w-[80%]">
-                    <p class="underline cursor-pointer text-[14px]">Đăng nhập bằng mã QR</p>
-                    <p class="underline cursor-pointer text-[14px]">Đăng nhập bằng OTP</p>
+                    <p class="underline cursor-pointer text-[14px] hover:text-orange-600">Đăng nhập bằng mã QR</p>
+                    <p class="underline cursor-pointer text-[14px] hover:text-orange-600">Đăng nhập bằng OTP</p>
                 </div>
-                <div class="bg-black w-[70%] p-3 flex justify-center items-center rounded-br-2xl rounded-tl-2xl my-8">
-                    <a href="#">
-                        <p class="text-white font-semibold text-lg">Đăng nhập</p>
-                    </a>
-                </div>
+                <a class="text-white font-semibold text-lg bg-black w-[80%] p-3 h-[50px] flex justify-center items-center rounded-br-2xl border border-black rounded-tl-2xl my-8 hover:bg-white hover:border hover:border-black hover:text-black" href="#">
+                    Đăng nhập
+                </a>
             </div>
 
             <!-- Đường viền ở giữa hai cột -->
@@ -50,11 +48,11 @@
                 <p class="text-gray-500 text-center text-[14px]">Bằng cách cung cấp cho IVY moda thông tin chi tiết của
                     bạn, quá trình mua hàng trên ivymoda.com sẽ là một trải nghiệm
                     thú vị và nhanh chóng hơn!</p>
-                <div class="bg-black w-[100%] p-3 flex justify-center items-center rounded-br-2xl rounded-tl-2xl my-8">
-                    <a href="?action=showformreg">
-                        <p class="text-white font-semibold text-lg">Đăng ký</p>
-                    </a>
-                </div>
+
+                <a class="text-white font-semibold h-[50px] border border-black text-lg bg-black w-[100%] p-3 flex justify-center items-center rounded-br-2xl rounded-tl-2xl my-8 hover:bg-white hover:border hover:border-black hover:text-black" href="?action=showformreg">
+                    Đăng ký
+                </a>
+
             </div>
         </div>
     </article>
