@@ -89,3 +89,4 @@
         <p>©IVYmoda All rights reserved - Nhóm 1</p>
     </div>
 </footer>
+<!-- Nghiêm cấm các thành viên tự ý share code mà chưa có sự đồng ý của trưởng nhóm. -->
