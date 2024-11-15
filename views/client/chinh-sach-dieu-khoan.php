@@ -2,26 +2,35 @@
 
 <body class="mx-[8%]">
     <?php require_once "./includes/menu.php" ?>
-    <div class="flex justify-center mx-auto">
-        <article class="w-[450px] mr-[50px]">
-            <div class="menu">
-                <p class="border border-gray-400 rounded-tl-[40px] rounded-br-[40px] ">
-                    <a class="m-[10px] p-[10px] leading-[15px] text-[14px] font-semibold text-gray-600 block hover:text-black"
+    <div class="flex gap-4 mb-[20px] mt-[90px] ">
+        <div class="text-sm">Trang chủ</div>
+        <div class="text-sm">-</div>
+        <div class="text-sm"> Chính sách điều khoản</div>
+    </div>
+    <hr class="mb-[60px]">
+    <div class="flex justify-center "><img src="./public/image/banner-dieu-khoan.png" alt=""></div>
+
+    <div class="grid grid-cols-[1fr_2fr] gap-10 justify-center mt-8">
+        <article class="m-0">
+            <div class="menu border border-gray-300 rounded-tl-[40px] rounded-br-[40px]">
+                <p class="p-12">
+                    <a class="leading-[15px] text-[14px] font-semibold text-gray-500 block hover:text-black"
                         href="">Về IVY moda</a> <br>
-                    <a class="m-[10px] p-[10px] leading-[15px] text-[14px] font-semibold text-gray-600 block hover:text-black"
+                    <a class="leading-[15px] text-[14px] font-semibold text-gray-500 block hover:text-black"
                         href="">Chính sách thẻ thành viên</a> <br>
-                    <a class="m-[10px] p-[10px] leading-[15px] text-[14px] font-semibold text-gray-600 block hover:text-black"
+                    <a class=" leading-[15px] text-[14px] font-semibold text-gray-500 block hover:text-black"
                         href="">Bảo hành trọn đời</a> <br>
-                    <a class="m-[10px] p-[10px] leading-[15px] text-[14px] font-semibold text-gray-600 block hover:text-black"
+                    <a class="leading-[15px] text-[14px] font-semibold text-gray-500 block hover:text-black"
                         href="">Chính sách đổi trả</a> <br>
-                    <a class="m-[10px] p-[10px] leading-[15px] text-[14px] font-semibold text-gray-600 block hover:text-black"
+                    <a class=" leading-[15px] text-[14px] font-semibold text-gray-500 block hover:text-black"
                         href="">Hệ thống cửa hàng</a> <br>
-                    <a class="m-[10px] p-[10px] leading-[15px] text-[14px] font-semibold text-gray-600 block hover:text-black"
+                    <a class=" leading-[15px] text-[14px] font-semibold text-gray-500 block hover:text-black"
                         href="">Q&A</a> <br>
+
                 </p>
             </div>
         </article>
-        <aside class="w-[550px]">
+        <aside class="mb-8">
             <div class="text-2xl font-semibold">
                 CHÍNH SÁCH ĐIỀU KHOẢN SỬ DỤNG
             </div> <br>
