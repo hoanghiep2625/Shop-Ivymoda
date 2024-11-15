@@ -27,4 +27,8 @@ class WebController
     {
         include "./views/client/product.php";
     }
+    public function dieukhoan()
+    {
+        include "./views/client/chinh-sach-dieu-khoan.php";
+    }
 }

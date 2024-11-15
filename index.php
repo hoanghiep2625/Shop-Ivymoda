@@ -35,6 +35,9 @@ switch ($action) {
     case 'product':
         $webController->product();
         break;
+    case 'dieukhoan':
+        $webController->dieukhoan();
+        break;
     default:
         echo "Không có trang này";
 }
