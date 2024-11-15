@@ -44,7 +44,7 @@
                         <p class="underline cursor-pointer text-[14px] hover:text-orange-600">Đăng nhập bằng mã QR</p>
                         <p class="underline cursor-pointer text-[14px] hover:text-orange-600">Đăng nhập bằng OTP</p>
                     </div>
-                    <input type="submit" name="login" class="text-white font-semibold text-lg bg-black w-[80%] p-3 h-[50px] text-center rounded-br-2xl border border-black rounded-tl-2xl my-8 hover:bg-white hover:border hover:border-black hover:text-black cursor-pointer" value="Đăng nhập">
+                    <input type="submit" name="login" class="text-white font-semibold text-lg bg-black w-[80%] p-3 h-[50px] text-center rounded-br-2xl border border-black rounded-tl-2xl my-8 hover:bg-white hover:border hover:border-black hover:text-black cursor-pointer transition-all duration-300" value="Đăng nhập">
                 </div>
             </form>
             <!-- Đường viền ở giữa hai cột -->
@@ -61,7 +61,7 @@
                     bạn, quá trình mua hàng trên ivymoda.com sẽ là một trải nghiệm
                     thú vị và nhanh chóng hơn!</p>
 
-                <a class="text-white font-semibold h-[50px] border border-black text-lg bg-black w-[100%] p-3 flex justify-center items-center rounded-br-2xl rounded-tl-2xl my-8 hover:bg-white hover:border hover:border-black hover:text-black" href="?action=showFormreg">
+                <a class="text-white font-semibold h-[50px] border border-black text-lg bg-black w-[100%] p-3 flex justify-center items-center rounded-br-2xl rounded-tl-2xl my-8 hover:bg-white hover:border hover:border-black hover:text-black transition-all duration-300" href="?action=showFormreg">
                     Đăng ký
                 </a>
 

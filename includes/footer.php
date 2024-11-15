@@ -21,35 +21,35 @@
             rounded-tl-2xl rounded-br-2xl
             flex
             items-center
-            justify-center text-white text-lg font-bold hover:bg-white hover:text-black hover:border hover:border-black cursor-pointer
+            justify-center text-white text-lg font-bold hover:bg-white hover:text-black hover:border hover:border-black cursor-pointer transition-all duration-300
           ">HOTLINE: 0353 608 533</p>
             </div>
         </div>
         <div class="grid grid-cols-[2fr_3fr_1fr] gap-4">
             <div>
                 <p class="font-semibold text-2xl pb-2">Giới thiệu</p>
-                <p class="py-2"><a class="font-[300] text-sm hover:text-orange-600 cursor-pointer" href="#">Về IVY moda</a></p>
-                <p class="py-2"><a class="font-[300] text-sm hover:text-orange-600 cursor-pointer" href="#">Tuyển dụng</a></p>
-                <p class="py-2"><a class="font-[300] text-sm hover:text-orange-600 cursor-pointer" href="#">Hệ Thống cửa hàng</a></p>
+                <p class="py-2"><a class="font-[300] text-sm hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Về IVY moda</a></p>
+                <p class="py-2"><a class="font-[300] text-sm hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Tuyển dụng</a></p>
+                <p class="py-2"><a class="font-[300] text-sm hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Hệ Thống cửa hàng</a></p>
             </div>
             <div>
                 <p class="font-semibold text-2xl pb-2">Dịch vụ khách hàng</p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 cursor-pointer" href="#">Chính sách điều khoản</a></p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 cursor-pointer" href="#">Hướng dẫn mua hàng</a></p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 cursor-pointer" href="#">Chính sách thanh toán</a></p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 cursor-pointer" href="#">Chính sách đổi trả</a></p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 cursor-pointer" href="#">Chính sách bảo hành</a></p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 cursor-pointer" href="#">Chính sách giao nhận vận chuyển</a></p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 cursor-pointer" href="#">Chính sách thẻ thành viên</a></p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 cursor-pointer" href="#">Q&A</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Chính sách điều khoản</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Hướng dẫn mua hàng</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Chính sách thanh toán</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Chính sách đổi trả</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Chính sách bảo hành</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Chính sách giao nhận vận chuyển</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Chính sách thẻ thành viên</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Q&A</a></p>
             </div>
             <div>
                 <p class="font-semibold text-2xl pb-2">Liên Hệ</p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 cursor-pointer" href="#">Hotline</a></p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 cursor-pointer" href="#">Email</a></p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 cursor-pointer" href="#">Live chat</a></p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 cursor-pointer" href="#">Messenger</a></p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 cursor-pointer" href="#">Liên hệ</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Hotline</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Email</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Live chat</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Messenger</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Liên hệ</a></p>
             </div>
         </div>
         <div>
@@ -74,7 +74,7 @@
                 flex
                 justify-center
                 items-center
-                hover:bg-black hover:text-white
+                hover:bg-black hover:text-white transition-all duration-300
               " href="#"><button>Đăng ký</button></a>
                     </div>
                 </div>

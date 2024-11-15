@@ -23,4 +23,8 @@ class WebController
     {
         include "./views/client/register.php";
     }
+    public function product()
+    {
+        include "./views/client/product.php";
+    }
 }

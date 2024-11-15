@@ -29,6 +29,12 @@ switch ($action) {
     case 'chinhsachdoitra':
         $webController->chinhsachdoitra();
         break;
+    case 'chinhsachdoitra':
+        $webController->chinhsachdoitra();
+        break;
+    case 'product':
+        $webController->product();
+        break;
     default:
         echo "Không có trang này";
 }

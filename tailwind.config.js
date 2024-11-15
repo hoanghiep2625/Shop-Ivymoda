@@ -3,6 +3,7 @@ module.exports = {
     "./views/client/register.php",
     "./views/client/login.php",
     "./views/client/home.php",
+    "./views/client/product.php",
     "./includes/header.php",
     "./includes/footer.php",
     "./includes/menu.php",
