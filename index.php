@@ -38,6 +38,12 @@ switch ($action) {
     case 'dieukhoan':
         $webController->dieukhoan();
         break;
+    case 'logout':
+        $userController->logout();
+        break;
+    case 'info':
+        $webController->info();
+        break;
     default:
         echo "Không có trang này";
 }

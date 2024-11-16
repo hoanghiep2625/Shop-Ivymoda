@@ -31,13 +31,12 @@
         <?php else : ?>
             <div class="ml-4 relative group">
                 <img src="./public/icon/user.svg" alt="User" class="w-5 h-auto cursor-pointer" id="user-icon" />
-                <div id="dropdown-menu" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg p-4">
-                    <a href="#" class="font-semibold mb-2 block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900">Tài khoản của tôi</a>
-                    <a href="#" class="block mb-2 px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900">Thông tin tài khoản</a>
+                <div id="dropdown-menu" class="absolute right-0 w-64 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out">
+                    <a href="?action=info" class="font-semibold mb-2 block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900">Tài khoản của tôi</a>
+                    <a href="?action=info" class="block mb-2 px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900">Thông tin tài khoản</a>
                     <a href="#" class="block mb-2 px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900">Sổ địa chỉ</a>
-                    <a href="?action=logout" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900">Logout</a>
+                    <a href="?action=logout" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900">Đăng xuất</a>
                 </div>
-
             </div>
 
         <?php endif; ?>

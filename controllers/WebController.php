@@ -31,4 +31,8 @@ class WebController
     {
         include "./views/client/chinh-sach-dieu-khoan.php";
     }
+    public function info()
+    {
+        include "./views/client/info.php";
+    }
 }

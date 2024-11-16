@@ -21,7 +21,7 @@
             rounded-tl-2xl rounded-br-2xl
             flex
             items-center
-            justify-center text-white text-lg font-bold hover:bg-white hover:text-black hover:border hover:border-black cursor-pointer transition-all duration-300
+            justify-center text-white  font-semibold hover:bg-white hover:text-black hover:border hover:border-black cursor-pointer transition-all duration-300
           ">HOTLINE: 0353 608 533</p>
             </div>
         </div>

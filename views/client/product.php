@@ -2,7 +2,7 @@
 
 <body class="mx-[8%]">
     <?php require_once "./includes/menu.php" ?>
-    <article>
+    <article class="mt-[90px]">
         <div class="flex gap-4 my-4">
             <div class="text-sm">Trang chủ</div>
             <div class="text-sm">-</div>

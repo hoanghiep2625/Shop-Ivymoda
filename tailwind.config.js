@@ -5,6 +5,7 @@ module.exports = {
     "./views/client/home.php",
     "./views/client/chinh-sach-dieu-khoan.php",
     "./views/client/product.php",
+    "./views/client/info.php",
     "./includes/header.php",
     "./includes/footer.php",
     "./includes/menu.php",

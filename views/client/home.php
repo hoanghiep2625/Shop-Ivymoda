@@ -261,7 +261,6 @@
                     <img src="./public/image/banner2.3.webp" class="w-[48.5%] h-auto rounded-tl-[70px] rounded-br-[70px]" alt="">
                     <img src="./public/image/banner2.1.webp" class="w-[48.5%] h-auto rounded-tl-[70px] rounded-br-[70px]" alt="">
                 </div>
-
             </div>
             <div class="swiper-button-next text-white hover:text-gray-700 absolute"></div>
             <div class="swiper-button-prev text-white hover:text-gray-700 absolute"></div>
