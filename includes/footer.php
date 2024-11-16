@@ -34,14 +34,14 @@
             </div>
             <div>
                 <p class="font-semibold text-2xl pb-2">Dịch vụ khách hàng</p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Chính sách điều khoản</a></p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Hướng dẫn mua hàng</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="?action=dieukhoan">Chính sách điều khoản</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="?action=huongdanmuahang">Hướng dẫn mua hàng</a></p>
                 <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Chính sách thanh toán</a></p>
                 <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Chính sách đổi trả</a></p>
                 <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Chính sách bảo hành</a></p>
                 <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Chính sách giao nhận vận chuyển</a></p>
                 <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Chính sách thẻ thành viên</a></p>
-                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="#">Q&A</a></p>
+                <p class="py-2"><a class="text-sm font-[300] hover:text-orange-600 transition-all duration-300 cursor-pointer" href="?action=qanda">Q&A</a></p>
             </div>
             <div>
                 <p class="font-semibold text-2xl pb-2">Liên Hệ</p>

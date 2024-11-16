@@ -44,6 +44,12 @@ switch ($action) {
     case 'info':
         $webController->info();
         break;
+    case 'qanda':
+        $webController->qanda();
+        break;
+    case 'huongdanmuahang':
+        $webController->huongdanmuahang();
+        break;
     default:
         echo "Không có trang này";
 }

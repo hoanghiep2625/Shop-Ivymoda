@@ -35,4 +35,12 @@ class WebController
     {
         include "./views/client/info.php";
     }
+    public function qanda()
+    {
+        include "./views/client/q&a.php";
+    }
+    public function huongdanmuahang()
+    {
+        include "./views/client/huong-dan-mua-hang.php";
+    }
 }
