@@ -1,7 +1,7 @@
-<?php require_once "./includes/header.php" ?>
+<?php require_once "partials/header.php" ?>
 
 <body class="mx-[8%]">
-    <?php require_once "./includes/menu.php" ?>
+    <?php require_once "partials/menu.php" ?>
     <article class="mt-[90px]">
         <div class="flex gap-4 my-4">
             <div class="text-sm">Trang chủ</div>
@@ -341,8 +341,8 @@
         </banner>
     </article>
     <hr>
-    <script src="./includes/js/tabshow.js"></script>
+    <script src="views/client/js/tabshow.js"></script>
 </body>
-<?php require_once "./includes/footer.php" ?>
+<?php require_once "partials/footer.php" ?>
 
 </html>

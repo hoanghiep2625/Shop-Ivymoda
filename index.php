@@ -2,13 +2,13 @@
 require_once "./includes/help.php";
 require_once "./controllers/UserController.php";
 require_once "./controllers/WebController.php";
-
+require_once "./controllers/AdminController.php";
 
 $action =  isset($_GET['action']) ? $_GET['action'] : 'home';
 
 $userController = new UserController();
 $webController = new WebController();
-
+$adminController = new AdminController();
 
 switch ($action) {
     case 'home':
@@ -50,6 +50,15 @@ switch ($action) {
     case 'huongdanmuahang':
         $webController->huongdanmuahang();
         break;
+    case 'thongke':
+        $adminController->thongke();
+        break;
+    case 'quan_ly_nguoi_dung':
+        $adminController->quan_ly_nguoi_dung();
+        break;
+    case 'chinh_sua_nguoi_dung':
+        $adminController->chinh_sua_nguoi_dung();
+        break;
     default:
-        echo "Không có trang này";
+        $webController->trangchu();
 }

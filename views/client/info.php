@@ -1,7 +1,7 @@
-<?php require_once "./includes/header.php" ?>
+<?php require_once "partials/header.php" ?>
 
 <body class="mx-[8%]">
-    <?php require_once "./includes/menu.php" ?>
+    <?php require_once "partials/menu.php" ?>
     <article class="mt-[90px]">
         <div class="flex gap-4 my-4">
             <div class="text-sm">Trang chủ</div>
@@ -56,9 +56,9 @@
                             <p class="p-4">Ngày sinh</p>
                         </div>
                         <div class="grid grid-rows-6 gap-4">
-                            <input type="text" value="Tạ Hoàng" class="border p-3 rounded-md text-[14px] font-semibold" disabled>
-                            <input type="text" value="Hiệp" class="border p-3 rounded-md text-[14px] font-semibold" disabled>
-                            <input type="text" value="0353608533" class="border p-3 rounded-md text-[14px] font-semibold" disabled>
+                            <input type="text" value="Tạ Hoàng" class="border p-3 rounded-md text-[14px] font-semibold bg-gray-200 opacity-50" disabled>
+                            <input type="text" value="Hiệp" class="border p-3 rounded-md text-[14px] font-semibold bg-gray-200 opacity-50" disabled>
+                            <input type="text" value="0353608533" class="border p-3 rounded-md text-[14px] font-semibold bg-gray-200 opacity-50" disabled>
                             <input type="text" value="hoanghiep262005@gmail.com" class="border p-3 rounded-md text-[14px]">
                             <div class="flex gap-2 items-center">
                                 <div class="mr-8">
@@ -75,7 +75,7 @@
                                 </div>
 
                             </div>
-                            <input type="text" value="02/06/2005" class="border p-3 rounded-md text-[14px] font-semibold" disabled>
+                            <input type="text" value="02/06/2005" class="border p-3 rounded-md text-[14px] font-semibold bg-gray-200 opacity-50" disabled>
 
                         </div>
 
@@ -109,6 +109,6 @@
     </article>
     <hr>
 </body>
-<?php require_once "./includes/footer.php" ?>
+<?php require_once "partials/footer.php" ?>
 
 </html>

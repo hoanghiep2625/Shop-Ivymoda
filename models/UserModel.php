@@ -12,8 +12,8 @@ class UserModel
         try {
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-            $sql = "INSERT INTO users (first_name, name, email, phone, date, sex, city, district, commune, address, password) 
-                    VALUES (:ho, :ten, :email, :sodt, :ngaysinh, :gioitinh, :tinhthanh, :quanhuyen, :phuongxa, :diachi, :password)";
+            $sql = "INSERT INTO users (first_name, name, email, phone, date, sex, city, district, commune, address, password, role, join_date) 
+                    VALUES (:ho, :ten, :email, :sodt, :ngaysinh, :gioitinh, :tinhthanh, :quanhuyen, :phuongxa, :diachi, :password, '1',NOW())";
 
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':ho', $ho);
@@ -31,7 +31,7 @@ class UserModel
             if ($stmt->execute()) {
                 return true;
             } else {
-                print_r($stmt->errorInfo()); // Hiển thị lỗi từ SQL
+                print_r($stmt->errorInfo());
                 return false;
             }
         } catch (PDOException $e) {

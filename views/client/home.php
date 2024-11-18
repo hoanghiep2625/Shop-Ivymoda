@@ -1,7 +1,7 @@
-<?php require_once "./includes/header.php" ?>
+<?php require_once "partials/header.php" ?>
 
 <body class="mx-[8%] ">
-    <?php require_once "./includes/menu.php" ?>
+    <?php require_once "partials/menu.php" ?>
     <article>
         <div class="grid grid-cols-[1fr_1.3fr_1fr] items-center justify-center">
             <div class="bg-[#D73831] text-white p-2 font-semibold text-center">SALE OFF 50%</div>
@@ -268,7 +268,7 @@
     </article>
     <hr>
 </body>
-<?php require_once "./includes/footer.php" ?>
-<script src="./includes/js/slideshow.js"></script>
+<?php require_once "partials/footer.php" ?>
+<script src="views/client/js/slideshow.js"></script>
 
 </html>

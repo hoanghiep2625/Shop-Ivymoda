@@ -64,6 +64,9 @@ class UserController
                 $thatbai = "Tài khoản hoặc mật khẩu không chính xác";
                 return $this->showFormlogin($thatbai, $input, $password);
             } else {
+                if ($user['role'] == 3) {
+                    $_SESSION['admin'] = $user['email'];
+                }
                 $_SESSION['email'] = $user['email'];
                 header('location: ?action=home');
                 exit();

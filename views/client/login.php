@@ -1,7 +1,7 @@
-<?php require_once "./includes/header.php" ?>
+<?php require_once "partials/header.php" ?>
 
 <body class="mx-[8%]">
-    <?php require_once "./includes/menu.php" ?>
+    <?php require_once "partials/menu.php" ?>
     <article class="h-auto mx-[8%]">
         <div class="grid grid-cols-[1fr_0.3fr_1fr] ">
             <!-- Cột trái -->
@@ -22,7 +22,7 @@
                                                                                                 } ?>">
                         <input name="username" id="username" type="text" placeholder="Email/SĐT" value="<?php if (isset($username) && $username != '') {
                                                                                                             echo $username;
-                                                                                                        } ?>" class="text-[14px] outline-none w-full">
+                                                                                                        } ?>" class="text-[14px] outline-none w-full border-0 focus:outline-none focus:ring-0">
                         <p id="username-error" class="text-red-500 text-[10px] absolute right-2 bottom-[-6px] w-80% bg-white hidden"></p>
                     </div>
                     <div class="border w-[80%] h-11 flex items-center p-4 relative <?php if (isset($password) && $password != '') {
@@ -30,7 +30,7 @@
                                                                                     } ?>">
                         <input name="password" id="password" type="password" placeholder="Mật khẩu" value="<?php if (isset($password) && $password != '') {
                                                                                                                 echo $password;
-                                                                                                            } ?>" class="text-[14px] outline-none w-full">
+                                                                                                            } ?>" class="text-[14px] outline-none w-full border-0 focus:outline-none focus:ring-0">
                         <p id="password-error" class="text-red-500 text-[10px] absolute right-2 bottom-[-6px] w-80% bg-white hidden"></p>
                     </div>
                     <div class="flex justify-between items-center my-4 w-[80%]">
@@ -71,7 +71,7 @@
 
     <hr />
 </body>
-<script src="./includes/js/validatelogin.js"></script>
-<?php require_once "./includes/footer.php" ?>
+<script src="views/client/js/validatelogin.js"></script>
+<?php require_once "partials/footer.php" ?>
 
 </html>
