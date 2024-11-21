@@ -51,13 +51,36 @@ switch ($action) {
         $webController->huongdanmuahang();
         break;
     case 'thongke':
+        $adminController->checkUser();
         $adminController->thongke();
         break;
     case 'quan_ly_nguoi_dung':
+        $adminController->checkUser();
         $adminController->quan_ly_nguoi_dung();
         break;
     case 'chinh_sua_nguoi_dung':
+        $adminController->checkUser();
         $adminController->chinh_sua_nguoi_dung();
+        break;
+    case 'quan_ly_danh_muc':
+        $adminController->checkUser();
+        $adminController->quan_ly_danh_muc();
+        break;
+    case 'nhanh_con_categories':
+        $adminController->checkUser();
+        $adminController->nhanh_con_categories();
+        break;
+    case 'nhanh_con_con_categories':
+        $adminController->checkUser();
+        $adminController->nhanh_con_con_categories();
+        break;
+    case 'products':
+        $adminController->checkUser();
+        $adminController->products();
+        break;
+    case 'add_product':
+        $adminController->checkUser();
+        $adminController->add_product();
         break;
     default:
         $webController->trangchu();

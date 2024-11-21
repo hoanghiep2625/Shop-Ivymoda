@@ -7,6 +7,13 @@ class AdminController
     {
         $this->AdminModel = new AdminModel();
     }
+    public function checkUser()
+    {
+        if ($_SESSION['admin'] == null) {
+            header('location: ?action=home');
+            return;
+        }
+    }
     public function thongke()
     {
         include "./views/admin/thongke.php";
@@ -83,5 +90,37 @@ class AdminController
             }
         }
         return null;
+    }
+    public function quan_ly_danh_muc()
+    {
+        $categories = $this->AdminModel->getAllCategories();
+        include "./views/admin/categories.php";
+    }
+    public function nhanh_con_categories()
+    {
+        $id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : null;
+        $categories = $this->AdminModel->getCategoriesById($id);
+        $categorie['id'] = $_GET['id'];
+        $sub_categories = $this->AdminModel->getSubCategoriesByParentCategoryId($id);
+        include "./views/admin/sub_categories.php";
+    }
+    public function nhanh_con_con_categories()
+    {
+        $id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : null;
+        $category = $_GET['category'];
+        $categorie = $this->AdminModel->getCategoriesById($category);
+        $sub_category =
+            $this->AdminModel->getSubCategoriesById($id);
+        $sub_sub_categories = $this->AdminModel->getSubSubCategoriesByParentSubcategoryId($id);
+        include "./views/admin/sub_sub_categories.php";
+    }
+    public function products()
+    {
+        $products = $this->AdminModel->getAllProduct();
+        include "./views/admin/products.php";
+    }
+    public function add_product()
+    {
+        include "./views/admin/add_product.php";
     }
 }

@@ -14,7 +14,7 @@
                  <a href="?action=quan_ly_danh_muc" class="block">Quản lý danh mục</a>
              </li>
              <li class="px-4 py-2 hover:bg-gray-700">
-                 <a href="?action=quan_ly_san_pham" class="block">Quản lý sản phẩm</a>
+                 <a href="?action=products" class="block">Quản lý sản phẩm</a>
              </li>
          </ul>
      </nav>
