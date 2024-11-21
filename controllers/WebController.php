@@ -7,10 +7,6 @@ class WebController
     {
         $this->WebModel = new WebModel();
     }
-    public function chinhsachdoitra()
-    {
-        include "./views/client/chinh-sach-doi-tra.php";
-    }
     public function showFormlogin()
     {
         include "./views/client/login.php";
@@ -42,5 +38,25 @@ class WebController
     public function huongdanmuahang()
     {
         include "./views/client/huong-dan-mua-hang.php";
+    }
+    public function chinhsachthanhtoan()
+    {
+        include "./views/client/chinh-sach-thanh-toan.php";
+    }
+    public function chinhsachdoitra()
+    {
+        include "./views/client/chinh-sach-doi-tra.php";
+    }
+    public function chinhsachbaohanh()
+    {
+        include "./views/client/chinh-sach-bao-hanh.php";
+    }
+    public function chinhsachvanchuyen()
+    {
+        include "./views/client/chinh-sach-giao-hang-van-chuyen.php";
+    }
+    public function chinhsachthethanhvien()
+    {
+        include "./views/client/chinh-sach-the-thanh-vien.php";
     }
 }

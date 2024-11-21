@@ -50,6 +50,21 @@ switch ($action) {
     case 'huongdanmuahang':
         $webController->huongdanmuahang();
         break;
+    case 'chinhsachthanhtoan':
+        $webController->chinhsachthanhtoan();
+        break;
+    case 'chinhsachdoitra':
+        $webController->chinhsachdoitra();
+        break;
+    case 'chinhsachbaohanh':
+        $webController->chinhsachbaohanh();
+        break;
+    case 'chinhsachvanchuyen':
+        $webController->chinhsachvanchuyen();
+        break;
+    case 'chinhsachthethanhvien':
+        $webController->chinhsachthethanhvien();
+        break;
     case 'thongke':
         $adminController->checkUser();
         $adminController->thongke();
