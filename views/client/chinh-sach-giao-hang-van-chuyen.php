@@ -11,7 +11,7 @@
     <hr>
 
 
-    <article class="flex grid grid-cols-[1fr_2fr] gap-10  justify-center">
+    <article class="grid grid-cols-[1fr_2fr] gap-10  justify-center">
         <div class=" border border-gray-400 rounded-tl-[40px] rounded-br-[40px] h-80 ">
             <p class="p-12">
                 <a class="leading-[15px] text-[14px] font-semibold text-gray-600 block hover:text-black" href="">Về IVY
