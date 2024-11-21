@@ -3,7 +3,7 @@
 <body class="mx-[8%]">
     <?php require_once "partials/menu.php" ?>
     <hr>
-    <div class="flex gap-4 mb-[20px] mt-[20px] ">
+    <div class="flex gap-4 mb-[20px] mt-[90px] ">
         <div class="text-sm">Trang chủ</div>
         <div class="text-sm">-</div>
         <div class="text-sm">Hướng dẫn mua hàng</div>
@@ -129,7 +129,7 @@
                         chính sách thanh toán, vui lòng
                         liên hệ theo số thông tin bên dưới
                     </div><br>
-                    <div class="py-3 px-6 border w-[250px] bg-black text-white text-base font-semibold ">
+                    <div class="py-3 px-6 border w-[250px] bg-black text-white text-[1rem] font-semibold ">
                         <a href="">GỌI NGAY: 0548 569 879</a>
                     </div>
                 </div>

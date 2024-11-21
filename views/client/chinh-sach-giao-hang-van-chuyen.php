@@ -3,7 +3,7 @@
 <body class="mx-[8%]">
     <?php require_once "partials/menu.php" ?>
     <hr>
-    <div class="flex gap-4 mb-[20px] mt-[20px] ">
+    <div class="flex gap-4 mb-[20px] mt-[90px] ">
         <div class="text-sm">Trang chủ</div>
         <div class="text-sm">-</div>
         <div class="text-sm">Chính sách giao nhận vận chuyển</div>

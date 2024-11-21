@@ -3,7 +3,7 @@
 <body class="mx-[8%]">
     <?php require_once "partials/menu.php" ?>
     <hr>
-    <div class="flex gap-4 mb-[20px] mt-[20px] ">
+    <div class="flex gap-4 mb-[20px] mt-[90px] ">
         <div class="text-sm">Trang chủ</div>
         <div class="text-sm">-</div>
         <div class="text-sm"> Chính sách thẻ thành viên</div>
@@ -34,16 +34,6 @@
             <div class="text-base italic font-semibold">
                 I. CHÍNH SÁCH THẺ THÀNH VIÊN
             </div><br>
-
-
-            <div>
-
-            </div>
-
-
-
-
-
 
             <div class="space-y-1.5 ">
                 <div class=" font-semibold text-base">

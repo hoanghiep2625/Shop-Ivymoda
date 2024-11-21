@@ -3,16 +3,16 @@
 <body class="mx-[8%]">
     <?php require_once "partials/menu.php" ?>
     <hr>
-    <div class="flex gap-4 mb-[20px] mt-[20px] ">
+    <div class="flex gap-4 mb-[20px] mt-[90px] ">
         <div class="text-sm">Trang chủ</div>
         <div class="text-sm">-</div>
         <div class="text-sm"> Q&A</div>
     </div>
-    <hr>
+    <hr class="mb-10">
     <div class="mt-[10px] flex">
         <img src="./public/image/Q&A.jpg" alt="">
     </div>
-    <hr class="mb-[30px]">
+    <hr class="mb-10">
     <article class="flex grid grid-cols-[1fr_2fr] gap-10  justify-center">
         <div class=" border border-gray-400 rounded-tl-[40px] rounded-br-[40px] h-80 ">
             <p class="p-12">
