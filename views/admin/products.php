@@ -4,18 +4,16 @@
     <!-- Wrapper -->
     <div class="flex h-full">
         <?php include "partials/menu.php"; ?>
-        <div class="flex-1 flex flex-col">
+        <div class="flex-1 flex flex-col ml-64">
             <!-- Top Navbar -->
-            <header class="bg-white shadow px-4 py-2 flex justify-between items-center">
-                <div class="text-lg font-bold">Danh sách sản phẩm</div>
-                <!-- Nút thêm sản phẩm -->
+            <header class="bg-white shadow px-4 py-2 flex justify-between items-center fixed w-full">
                 <a href="?action=add_product" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                     Thêm sản phẩm
                 </a>
             </header>
 
             <!-- Main Section -->
-            <main class="p-4 flex-grow bg-gray-100">
+            <main class="p-4 flex-grow bg-gray-100 pt-16">
                 <div class="bg-white p-6 shadow rounded">
                     <table id="export-table" class="table-auto w-full text-left border-collapse">
                         <thead>

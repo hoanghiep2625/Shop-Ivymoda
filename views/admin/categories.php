@@ -4,14 +4,14 @@
     <!-- Wrapper -->
     <div class="flex h-full">
         <?php include "partials/menu.php"; ?>
-        <div class="flex-1 flex flex-col">
+        <div class="flex-1 flex flex-col ml-64">
             <!-- Top Navbar -->
-            <header class="bg-white shadow px-4 py-2 flex justify-between items-center">
+            <header class="bg-white shadow px-4 py-2 flex justify-between items-center fixed w-full">
                 <div class="text-lg font-bold">Danh mục chính</div>
             </header>
 
             <!-- Main Section -->
-            <main class="p-4 flex-grow bg-gray-100">
+            <main class="p-4 flex-grow bg-gray-100 pt-16">
                 <div class="bg-white p-6 shadow rounded">
                     <table id="export-table">
                         <thead>

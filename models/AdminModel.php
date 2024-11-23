@@ -1,12 +1,16 @@
 <?php
 require_once './includes/connect_db.php';
+
 class AdminModel
 {
     public $conn;
+
     public function __construct()
     {
-        $this->conn = connectDB();
+        $this->conn = connectDB(); // Kết nối cơ sở dữ liệu sử dụng PDO
     }
+
+    // Lấy tất cả người dùng
     public function getAllUser()
     {
         $query = "SELECT * FROM users";
@@ -15,6 +19,8 @@ class AdminModel
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $users;
     }
+
+    // Lấy tất cả categories
     public function getAllCategories()
     {
         $query = "SELECT * FROM categories";
@@ -23,6 +29,8 @@ class AdminModel
         $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $categories;
     }
+
+    // Lấy categories theo id
     public function getCategoriesById($id)
     {
         $query = "SELECT * FROM categories WHERE id = :id";
@@ -32,6 +40,8 @@ class AdminModel
         $category = $stmt->fetch(PDO::FETCH_ASSOC);
         return $category;
     }
+
+    // Lấy subcategories theo id
     public function getSubCategoriesById($id)
     {
         $query = "SELECT * FROM subcategories WHERE id = :id";
@@ -41,6 +51,8 @@ class AdminModel
         $sub_category = $stmt->fetch(PDO::FETCH_ASSOC);
         return $sub_category;
     }
+
+    // Lấy subcategories theo parent_category_id
     public function getSubCategoriesByParentCategoryId($parent_category_id)
     {
         $query = "SELECT * FROM subcategories WHERE parent_category_id = :parent_category_id";
@@ -50,9 +62,10 @@ class AdminModel
         $sub_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $sub_categories;
     }
-    public function getSubSubCategoriesByParentSubcategoryId(
-        $parent_subcategory_id
-    ) {
+
+    // Lấy sub_subcategories theo parent_subcategory_id
+    public function getSubSubCategoriesByParentSubcategoryId($parent_subcategory_id)
+    {
         $query = "SELECT * FROM sub_subcategories WHERE parent_subcategory_id = :parent_subcategory_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':parent_subcategory_id', $parent_subcategory_id);
@@ -60,6 +73,8 @@ class AdminModel
         $sub_sub_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $sub_sub_categories;
     }
+
+    // Lấy sub_subcategories theo id
     public function getSubSubCategoriesById($id)
     {
         $query = "SELECT * FROM sub_subcategories WHERE parent_subcategory_id = :id";
@@ -69,6 +84,8 @@ class AdminModel
         $sub_sub_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $sub_sub_categories;
     }
+
+    // Lấy thông tin người dùng cần chỉnh sửa
     public function chinh_sua_nguoi_dung($id)
     {
         $query = "SELECT * FROM users WHERE id = :id";
@@ -78,6 +95,8 @@ class AdminModel
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user;
     }
+
+    // Lấy tất cả sản phẩm
     public function getAllProduct()
     {
         $query = "SELECT * FROM products";
@@ -85,5 +104,32 @@ class AdminModel
         $stmt->execute();
         $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $products;
+    }
+    public function getCategoriesWithSubcategories()
+    {
+        $sql = "
+            SELECT
+                c.id AS category_id,
+                c.name AS category_name,
+                s.id AS subcategory_id,
+                s.name AS subcategory_name,
+                ss.id AS sub_subcategory_id,
+                ss.name AS sub_subcategory_name
+            FROM
+                categories c
+            LEFT JOIN
+                subcategories s ON c.id = s.parent_category_id
+            LEFT JOIN
+                sub_subcategories ss ON s.id = ss.parent_subcategory_id
+            ORDER BY
+                c.id, s.id, ss.id
+        ";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $data;
     }
 }

@@ -1,4 +1,4 @@
- <aside class="w-64 bg-gray-800 text-white flex flex-col">
+ <aside class="w-64 bg-gray-800 text-white flex flex-col fixed h-full top-0 left-0">
      <div class="p-4 text-center text-lg font-bold border-b border-gray-700">
          Admin Panel
      </div>

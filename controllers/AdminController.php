@@ -121,6 +121,9 @@ class AdminController
     }
     public function add_product()
     {
+        $categories = $this->AdminModel->getAllCategories();
+        $categoriesData = $this->AdminModel->getCategoriesWithSubcategories();
+        $categoriesDataJson = json_encode($categoriesData);
         include "./views/admin/add_product.php";
     }
 }
