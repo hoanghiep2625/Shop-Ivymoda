@@ -36,7 +36,6 @@ class UserController
                 $thatbai = 2;
                 return $this->showFormreg($thatbai, $ho, $ten, $email, $sodt, $ngaysinh, $gioitinh, $tinhthanh, $quanhuyen, $phuongxa, $password, $diachi);
             }
-
             if ($this->UserModel->register($ho, $ten, $email, $sodt, $ngaysinh, $gioitinh, $tinhthanh, $quanhuyen, $phuongxa, $diachi, $password)) {
                 header('location: ?action=showFormlogin');
                 exit();
@@ -67,6 +66,7 @@ class UserController
                 if ($user['role'] == 3) {
                     $_SESSION['admin'] = $user['email'];
                 }
+                $this->saveLoginHistory($user['email']);
                 $_SESSION['email'] = $user['email'];
                 header('location: ?action=home');
                 exit();
@@ -78,6 +78,61 @@ class UserController
         if (isset($_SESSION['email'])) {
             session_destroy();
             header("location:?action=showFormlogin");
+        }
+    }
+    public function info($thatbai = '', $newpassword = '', $thanhcong = '')
+    {
+        $email = $_SESSION['email'];
+        $user = $this->UserModel->getUserByEmail($email);
+        include "./views/client/info.php";
+    }
+    public function changepassword()
+    {
+        $oldpassword = $_POST['oldpassword'];
+        $newpassword = $_POST['newpassword'];
+        $email = $_SESSION['email'];
+
+        $thatbai = '';
+        $thanhcong = '';
+
+        $user = $this->UserModel->getUserByEmail($email);
+
+        if (!password_verify($oldpassword, $user['password'])) {
+            $thatbai = "Mật khẩu cũ không chính xác.";
+            return $this->info($thatbai, $newpassword, $thanhcong = '');
+        }
+
+        $this->UserModel->changepassword($email, $newpassword);
+        $thanhcong = "Đổi mật khẩu thành công";
+        return $this->info($thatbai = '', $newpassword = '', $thanhcong);
+    }
+    public function hislogin()
+    {
+        $email = $_SESSION['email'];
+        $user = $this->UserModel->getUserByEmail($email);
+        $hislogin = $this->UserModel->getHisLoginByEmail($email);
+        include "./views/client/hislogin.php";
+    }
+    public function saveLoginHistory($email)
+    {
+        $ipAddress = $_SERVER['REMOTE_ADDR'];
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+        $device = $this->getDeviceInfo($userAgent);
+        $status = 'Success';
+        $this->UserModel->saveLoginHistory($email, $ipAddress, $userAgent, $device, $status);
+    }
+    public function getDeviceInfo($userAgent)
+    {
+        if (strpos($userAgent, 'Windows NT') !== false) {
+            return 'Windows';
+        } elseif (strpos($userAgent, 'Macintosh') !== false) {
+            return 'Mac OS';
+        } elseif (strpos($userAgent, 'Android') !== false) {
+            return 'Android';
+        } elseif (strpos($userAgent, 'iPhone') !== false) {
+            return 'iPhone';
+        } else {
+            return 'Unknown Device';
         }
     }
 }

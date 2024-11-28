@@ -22,8 +22,6 @@
                                 <th class="px-4 py-2 border">Tên sản phẩm</th>
                                 <th class="px-4 py-2 border">Giá</th>
                                 <th class="px-4 py-2 border">Mã SKU</th>
-                                <th class="px-4 py-2 border">Mô tả ngắn</th>
-                                <th class="px-4 py-2 border">Danh mục con</th>
                                 <th class="px-4 py-2 border">Màu sắc</th>
                                 <th class="px-4 py-2 border">Hành động</th>
                             </tr>
@@ -35,12 +33,19 @@
                                     <td class="px-4 py-2 border"><?= htmlspecialchars($product['name']) ?></td>
                                     <td class="px-4 py-2 border"><?= htmlspecialchars(number_format($product['price'], 0, ',', '.')) ?> đ</td>
                                     <td class="px-4 py-2 border"><?= htmlspecialchars($product['sku_code']) ?></td>
-                                    <td class="px-4 py-2 border"><?= htmlspecialchars($product['short_description']) ?></td>
-                                    <td class="px-4 py-2 border"><?= htmlspecialchars($product['sub_subcategory_id']) ?></td>
-                                    <td class="px-4 py-2 border"><?= htmlspecialchars($product['color']) ?></td>
+                                    <td class="px-4 py-2 flex items-center">
+                                        <div class="inline-block w-6 h-6 rounded" style="background-color: <?= $product['hex_color'] ?>;"></div>
+                                        <span class="ml-2"><?= $product['hex_color'] ?></span>
+                                    </td>
+
                                     <td class="px-4 py-2 border">
                                         <a href="?action=edit_product&id=<?= urlencode($product['id']) ?>"
-                                            class="text-blue-500 hover:underline">Chỉnh sửa</a>
+                                            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Chỉnh sửa</a>
+                                        <a href="?action=delete_product&id=<?= urlencode($product['id']) ?>"
+                                            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 mx-4"
+                                            onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">Xóa</a>
+                                        <a href="?action=add_color&id=<?= urlencode($product['id']) ?>"
+                                            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Thêm màu</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

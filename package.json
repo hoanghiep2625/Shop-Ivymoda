@@ -7,16 +7,23 @@
     "build": "npx tailwindcss build includes/css/style.css -o includes/dist/style.css",
     "watch": "npx tailwindcss -i includes/css/style.css -o includes/dist/style.css --watch"
   },
+  "overrides": {
+    "prosemirror-model": "1.19.3"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "autoprefixer": "^10.4.20",
+    "flowbite-typography": "^1.0.5",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.14"
   },
   "dependencies": {
+    "@tiptap/core": "^2.10.2",
+    "@tiptap/pm": "^2.10.2",
+    "@tiptap/starter-kit": "^2.10.2",
     "flowbite": "^2.5.2",
     "simple-datatables": "^9.2.1"
   }

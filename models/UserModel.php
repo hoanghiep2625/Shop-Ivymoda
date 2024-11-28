@@ -110,4 +110,31 @@ class UserModel
             return false;
         }
     }
+    public function getHisLoginByEmail($email)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM login_history WHERE email = :email ORDER BY login_time DESC");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function changepassword($email, $password)
+    {
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        $sql = "UPDATE users SET password = :password WHERE email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':password', $hashedPassword);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+    }
+    public function saveLoginHistory($email, $ipAddress, $userAgent, $device, $status)
+    {
+        $stmt = $this->conn->prepare("INSERT INTO login_history (email, ip_address, user_agent, device, status) 
+                                 VALUES (:email, :ip_address, :user_agent, :device, :status)");
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':ip_address', $ipAddress);
+        $stmt->bindParam(':user_agent', $userAgent);
+        $stmt->bindParam(':device', $device);
+        $stmt->bindParam(':status', $status);
+        return $stmt->execute();
+    }
 }

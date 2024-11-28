@@ -106,14 +106,14 @@
                 <div>
                     <p>Mật khẩu: <span class="text-red-500">*</span></p>
                     <div id="password" class="w-[100%] border h-11 flex items-center p-4 mb-6 relative">
-                        <input type="text" id="inpassword" name="inpassword" placeholder="Mật khẩu.." class="text-[14px] outline-none w-full border-0 focus:outline-none focus:ring-0" value="<?php echo !empty($password) ? $password : ''; ?>">
+                        <input type="password" id="inpassword" name="inpassword" placeholder="Mật khẩu.." class="text-[14px] outline-none w-full border-0 focus:outline-none focus:ring-0" value="<?php echo !empty($password) ? $password : ''; ?>">
                         <p id="password-error" class="text-red-500 text-[10px] absolute right-2 bottom-[-6px] w-80% bg-white hidden"></p>
                     </div>
                 </div>
                 <div>
                     <p>Nhập lại mật khẩu: <span class="text-red-500">*</span></p>
                     <div id="xacnhanpassword" class="w-[100%] border h-11 flex items-center p-4 mb-6 relative">
-                        <input type="text" id="inrepass" name="inrepass" placeholder="Nhập lại mật khẩu.." class="text-[14px] outline-none w-full border-0 focus:outline-none focus:ring-0" value="<?php echo !empty($password) ? $password : ''; ?>">
+                        <input type="password" id="inrepass" name="inrepass" placeholder="Nhập lại mật khẩu.." class="text-[14px] outline-none w-full border-0 focus:outline-none focus:ring-0" value="<?php echo !empty($password) ? $password : ''; ?>">
                         <p id="xacnhanpassword-error" class="text-red-500 text-[10px] absolute right-2 bottom-[-6px] w-80% bg-white hidden"></p>
                     </div>
                 </div>

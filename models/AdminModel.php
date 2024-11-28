@@ -132,4 +132,79 @@ class AdminModel
 
         return $data;
     }
+    public function addProduct($name, $price, $sku_code, $short_description, $full_description, $sub_subcategory_id, $color, $colorchuan, $name_color)
+    {
+        $sql = "INSERT INTO products (name, price, sku_code, short_description, full_description, sub_subcategory_id, color, hex_color, name_color, time_add) 
+            VALUES (:name, :price, :sku_code, :short_description, :full_description, :sub_subcategory_id, :color, :colorchuan, :name_color, NOW())";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([
+            ':name' => $name,
+            ':price' => $price,
+            ':sku_code' => $sku_code,
+            ':short_description' => $short_description,
+            ':full_description' => $full_description,
+            ':sub_subcategory_id' => $sub_subcategory_id,
+            ':color' => $color,
+            ':colorchuan' => $colorchuan,
+            ':name_color' => $name_color
+        ]);
+
+        // Lấy ID vừa thêm
+        return $this->conn->lastInsertId();
+    }
+
+
+    // Thêm hình ảnh sản phẩm
+    public function addProductImages($productId, $images)
+    {
+        $sql = "INSERT INTO product_images (product_id, image_url, is_main) VALUES (:product_id, :image_url, :is_main)";
+        $stmt = $this->conn->prepare($sql);
+        foreach ($images as $image) {
+            $stmt->execute([
+                ':product_id' => $productId,
+                ':image_url' => $image['url'],
+                ':is_main' => $image['is_main'],
+            ]);
+        }
+    }
+
+    // Thêm biến thể sản phẩm
+    public function addProductVariants($productId, $variants)
+    {
+        $sql = "INSERT INTO product_variants (product_id, size, stock) VALUES (:product_id, :size, :stock)";
+        $stmt = $this->conn->prepare($sql);
+        foreach ($variants as $variant) {
+            $stmt->execute([
+                ':product_id' => $productId,
+                ':size' => $variant['size'],
+                ':stock' => $variant['stock'],
+            ]);
+        }
+    }
+    public function getProductById($id)
+    {
+        $sql = "SELECT * FROM products WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function getParentSubcategoryId($id)
+    {
+        $sql = "SELECT * FROM sub_subcategories WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result : null;
+    }
+
+    public function getParentCategoryId($id)
+    {
+        $sql = "SELECT * FROM subcategories WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result : null;
+    }
 }

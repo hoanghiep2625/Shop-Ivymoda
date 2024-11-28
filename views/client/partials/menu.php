@@ -14,7 +14,7 @@
         <a href="#" class="text-sm font-semibold text-gray-800 hover:text-red-500 transition-all duration-300">VỀ CHÚNG TÔI</a>
     </div>
     <div class="flex items-center">
-        <a href="#"><img src="./public/image/logo.png" alt="Logo" class="w-32 h-auto" /></a>
+        <a href="?action=home"><img src="./public/image/logo.png" alt="Logo" class="w-32 h-auto" /></a>
     </div>
     <div class="flex items-center">
         <div class="w-80 h-9 border flex">

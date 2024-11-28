@@ -109,8 +109,7 @@ class AdminController
         $id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : null;
         $category = $_GET['category'];
         $categorie = $this->AdminModel->getCategoriesById($category);
-        $sub_category =
-            $this->AdminModel->getSubCategoriesById($id);
+        $sub_category = $this->AdminModel->getSubCategoriesById($id);
         $sub_sub_categories = $this->AdminModel->getSubSubCategoriesByParentSubcategoryId($id);
         include "./views/admin/sub_sub_categories.php";
     }
@@ -125,5 +124,89 @@ class AdminController
         $categoriesData = $this->AdminModel->getCategoriesWithSubcategories();
         $categoriesDataJson = json_encode($categoriesData);
         include "./views/admin/add_product.php";
+    }
+    public function addProduct()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['name'];
+            $price = $_POST['price'];
+            if (strlen($_POST['sku_code']) > 1) {
+                $sku_code = $_POST['sku_code'];
+            } else {
+                $sku_code =
+                    rand(10, 99) . chr(rand(65, 90)) . rand(1000, 9999);
+            }
+            $short_description = $_POST['short_description'];
+            $full_description = $_POST['full_description'];
+            $sub_subcategory_id = $_POST['sub_subcategory_id'];
+            $color = $_POST['colorgoc'];
+            $colorchuan = $_POST['hex_value'];
+            $namecolor = $_POST['name_color'];
+            $productId = $this->AdminModel->addProduct($name, $price, $sku_code, $short_description, $full_description, $sub_subcategory_id, $color, $colorchuan, $namecolor);
+
+            if (!$productId) {
+                die("Không thể thêm sản phẩm.");
+            }
+
+            $variants = [];
+            foreach ($_POST['stock'] as $colorIndex => $stockData) {
+                foreach ($stockData as $size => $stock) {
+                    $variants[] = ['size' => $size, 'stock' => $stock];
+                }
+            }
+
+            if (!empty($variants)) {
+                $this->AdminModel->addProductVariants($productId, $variants);
+            }
+            $subimages = [];
+            if (!empty($_FILES['sub_images']['name'][0])) {
+                foreach ($_FILES['sub_images']['name'] as $index => $filename) {
+                    $imagePath = "./public/imageSp/" . basename($filename);
+                    move_uploaded_file($_FILES['sub_images']['tmp_name'][$index], $imagePath);
+
+                    $subimages[] = [
+                        'url' => $imagePath,
+                        'is_main' => $index === 0 ? 1 : 0,
+                    ];
+                }
+                $this->AdminModel->addProductImages($productId, $subimages);
+            }
+            header("Location: /products?success=true");
+            exit();
+        }
+    }
+
+    private function uploadImages($main_images, $sub_images)
+    {
+        $uploadDir = 'uploads/';
+        $imagePaths = [
+            'main_images' => [],
+            'sub_images' => [],
+        ];
+
+        foreach ($main_images['name'] as $index => $fileName) {
+            $filePath = $uploadDir . basename($fileName);
+            if (move_uploaded_file($main_images['tmp_name'][$index], $filePath)) {
+                $imagePaths['main_images'][] = $filePath;
+            }
+        }
+
+        foreach ($sub_images['name'] as $index => $fileName) {
+            $filePath = $uploadDir . basename($fileName);
+            if (move_uploaded_file($sub_images['tmp_name'][$index], $filePath)) {
+                $imagePaths['sub_images'][] = $filePath;
+            }
+        }
+
+        return $imagePaths;
+    }
+    public function add_color()
+    {
+        $id = $_GET['id'];
+        $product = $this->AdminModel->getProductById($id);
+        $sub_subcategories = $this->AdminModel->getParentSubcategoryId($product['sub_subcategory_id']);
+        $subcategories = $this->AdminModel->getParentCategoryId($sub_subcategories['parent_subcategory_id']);
+        $categories = $this->AdminModel->getCategoriesById($subcategories['id']);
+        include "./views/admin/add_color.php";
     }
 }

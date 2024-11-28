@@ -1,5 +1,4 @@
 <?php
-require_once "./includes/help.php";
 require_once "./controllers/UserController.php";
 require_once "./controllers/WebController.php";
 require_once "./controllers/AdminController.php";
@@ -42,10 +41,25 @@ switch ($action) {
         $userController->logout();
         break;
     case 'info':
-        $webController->info();
+        $userController->info();
+        break;
+    case 'hislogin':
+        $userController->hislogin();
+        break;
+    case 'removeFromWishlist':
+        $webController->removeFromWishlist();
+        break;
+    case 'product-love':
+        $webController->showWishlist();
+        break;
+    case 'addToWishlist':
+        $webController->addToWishlist();
         break;
     case 'qanda':
         $webController->qanda();
+        break;
+    case 'changepassword':
+        $userController->changepassword();
         break;
     case 'huongdanmuahang':
         $webController->huongdanmuahang();
@@ -61,6 +75,9 @@ switch ($action) {
         break;
     case 'chinhsachvanchuyen':
         $webController->chinhsachvanchuyen();
+        break;
+    case 'forgotpassword':
+        $webController->forgotpassword();
         break;
     case 'chinhsachthethanhvien':
         $webController->chinhsachthethanhvien();
@@ -96,6 +113,14 @@ switch ($action) {
     case 'add_product':
         $adminController->checkUser();
         $adminController->add_product();
+        break;
+    case 'addProduct':
+        $adminController->checkUser();
+        $adminController->addProduct();
+        break;
+    case 'add_color':
+        $adminController->checkUser();
+        $adminController->add_color();
         break;
     default:
         $webController->trangchu();

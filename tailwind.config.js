@@ -5,7 +5,9 @@ module.exports = {
   },
   plugins: [
     require("flowbite/plugin")({
+      wysiwyg: true,
       datatables: true,
     }),
+    require("flowbite-typography"),
   ],
 };
