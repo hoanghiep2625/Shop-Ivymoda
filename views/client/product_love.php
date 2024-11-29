@@ -74,9 +74,9 @@
                                         <?php endforeach; ?>
                                     </div>
                                     <?php
-                                    $email = $_SESSION['email'];
+                                    $user_id = $_SESSION['id'];
                                     $productId = $product['id'];
-                                    $isInWishlist = $this->checkWishlistStatus($email, $productId);
+                                    $isInWishlist = $this->checkWishlistStatus($user_id, $productId);
                                     ?>
                                     <a href="javascript:void(0);" class="remove-wishlist <?php if (!$isInWishlist) echo 'hidden'; ?>" data-id="<?= $product['id'] ?>">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4 h-4">

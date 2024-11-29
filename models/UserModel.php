@@ -110,27 +110,27 @@ class UserModel
             return false;
         }
     }
-    public function getHisLoginByEmail($email)
+    public function getHisLoginByUserId($user_id)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM login_history WHERE email = :email ORDER BY login_time DESC");
-        $stmt->bindParam(':email', $email);
+        $stmt = $this->conn->prepare("SELECT * FROM login_history WHERE user_id = :user_id ORDER BY login_time DESC");
+        $stmt->bindParam(':user_id', $user_id);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function changepassword($email, $password)
+    public function changepassword($user_id, $password)
     {
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $sql = "UPDATE users SET password = :password WHERE email = :email";
+        $sql = "UPDATE users SET password = :password WHERE id = :user_id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':password', $hashedPassword);
-        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':user_id', $user_id);
         $stmt->execute();
     }
-    public function saveLoginHistory($email, $ipAddress, $userAgent, $device, $status)
+    public function saveLoginHistory($user_id, $ipAddress, $userAgent, $device, $status)
     {
-        $stmt = $this->conn->prepare("INSERT INTO login_history (email, ip_address, user_agent, device, status) 
-                                 VALUES (:email, :ip_address, :user_agent, :device, :status)");
-        $stmt->bindParam(':email', $email);
+        $stmt = $this->conn->prepare("INSERT INTO login_history (user_id, ip_address, user_agent, device, status) 
+                                 VALUES (:user_id, :ip_address, :user_agent, :device, :status)");
+        $stmt->bindParam(':user_id', $user_id);
         $stmt->bindParam(':ip_address', $ipAddress);
         $stmt->bindParam(':user_agent', $userAgent);
         $stmt->bindParam(':device', $device);

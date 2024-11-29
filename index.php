@@ -46,6 +46,18 @@ switch ($action) {
     case 'hislogin':
         $userController->hislogin();
         break;
+    case 'cart':
+        $webController->cart();
+        break;
+    case 'updateQuantity':
+        $webController->updateQuantity();
+        break;
+    case 'removeProductFromCart':
+        $webController->removeProductFromCartAction();
+        break;
+    case 'addcart':
+        $webController->addToCart();
+        break;
     case 'removeFromWishlist':
         $webController->removeFromWishlist();
         break;

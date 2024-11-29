@@ -1,28 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const decreaseBtn = document.getElementById("decreaseBtn");
-  const increaseBtn = document.getElementById("increaseBtn");
-  const quantityDisplay = document.getElementById("quantityDisplay");
-
-  // Lấy số lượng ban đầu
-  let quantity = parseInt(quantityDisplay.textContent, 10);
-
-  // Xử lý khi bấm nút cộng
-  increaseBtn.addEventListener("click", () => {
-    quantity += 1; // Tăng số lượng
-    quantityDisplay.textContent = quantity; // Cập nhật hiển thị
-  });
-
-  // Xử lý khi bấm nút trừ
-  decreaseBtn.addEventListener("click", () => {
-    if (quantity > 1) {
-      // Không cho số lượng nhỏ hơn 1
-      quantity -= 1; // Giảm số lượng
-      quantityDisplay.textContent = quantity; // Cập nhật hiển thị
-    }
-  });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
   const zoomLayout = document.getElementById("zoomLayout");
   const mainImage = document.getElementById("mainImage");
 

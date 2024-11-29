@@ -66,8 +66,9 @@ class UserController
                 if ($user['role'] == 3) {
                     $_SESSION['admin'] = $user['email'];
                 }
-                $this->saveLoginHistory($user['email']);
+                $this->saveLoginHistory($user['id']);
                 $_SESSION['email'] = $user['email'];
+                $_SESSION['id'] = $user['id'];
                 header('location: ?action=home');
                 exit();
             }
@@ -91,7 +92,7 @@ class UserController
         $oldpassword = $_POST['oldpassword'];
         $newpassword = $_POST['newpassword'];
         $email = $_SESSION['email'];
-
+        $user_id = $_SESSION['id'];
         $thatbai = '';
         $thanhcong = '';
 
@@ -102,24 +103,25 @@ class UserController
             return $this->info($thatbai, $newpassword, $thanhcong = '');
         }
 
-        $this->UserModel->changepassword($email, $newpassword);
+        $this->UserModel->changepassword($user_id, $newpassword);
         $thanhcong = "Đổi mật khẩu thành công";
         return $this->info($thatbai = '', $newpassword = '', $thanhcong);
     }
     public function hislogin()
     {
         $email = $_SESSION['email'];
+        $user_id = $_SESSION['id'];
         $user = $this->UserModel->getUserByEmail($email);
-        $hislogin = $this->UserModel->getHisLoginByEmail($email);
+        $hislogin = $this->UserModel->getHisLoginByUserId($user_id);
         include "./views/client/hislogin.php";
     }
-    public function saveLoginHistory($email)
+    public function saveLoginHistory($user_id)
     {
         $ipAddress = $_SERVER['REMOTE_ADDR'];
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
         $device = $this->getDeviceInfo($userAgent);
         $status = 'Success';
-        $this->UserModel->saveLoginHistory($email, $ipAddress, $userAgent, $device, $status);
+        $this->UserModel->saveLoginHistory($user_id, $ipAddress, $userAgent, $device, $status);
     }
     public function getDeviceInfo($userAgent)
     {

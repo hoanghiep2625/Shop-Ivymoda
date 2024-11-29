@@ -71,99 +71,253 @@ class WebModel
         $stmt->execute([$sku]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getViewedCount($email)
+    public function getViewedCount($user_id)
     {
-        $query = "SELECT COUNT(*) FROM viewed_products WHERE email = :email";
+        $query = "SELECT COUNT(*) FROM viewed_products WHERE user_id = :user_id";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([':email' => $email]);
+        $stmt->execute([':user_id' => $user_id]);
         return $stmt->fetchColumn();
     }
-    public function checkProductExists($email, $productId)
+    public function checkProductExists($user_id, $productId)
     {
-        $query = "SELECT COUNT(*) FROM viewed_products WHERE email = :email AND product_id = :product_id";
+        $query = "SELECT COUNT(*) FROM viewed_products WHERE user_id = :user_id AND product_id = :product_id";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([':email' => $email, ':product_id' => $productId]);
+        $stmt->execute([':user_id' => $user_id, ':product_id' => $productId]);
         return $stmt->fetchColumn() > 0;
     }
-    public function getViewedProducts($email, $id)
+    public function getViewedProducts($user_id, $id)
     {
-        $query = "SELECT * FROM viewed_products WHERE email = :email AND product_id != :id ORDER BY viewed_at DESC";
+        $query = "SELECT * FROM viewed_products WHERE user_id = :user_id AND product_id != :id ORDER BY viewed_at DESC";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([
-            ':email' => $email,
+            ':user_id' => $user_id,
             ':id' => $id
         ]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function deleteOldestViewedProduct($email)
+    public function deleteOldestViewedProduct($user_id)
     {
-        $deleteQuery = "DELETE FROM viewed_products WHERE email = :email ORDER BY viewed_at ASC LIMIT 1";
+        $deleteQuery = "DELETE FROM viewed_products WHERE user_id = :user_id ORDER BY viewed_at ASC LIMIT 1";
         $deleteStmt = $this->conn->prepare($deleteQuery);
-        $deleteStmt->execute([':email' => $email]);
+        $deleteStmt->execute([':user_id' => $user_id]);
     }
-    public function addProductViewed($email, $productId)
+    public function addProductViewed($user_id, $productId)
     {
-        $insertQuery = "INSERT INTO viewed_products (email, product_id) VALUES (:email, :product_id)";
+        $insertQuery = "INSERT INTO viewed_products (user_id, product_id) VALUES (:user_id, :product_id)";
         $insertStmt = $this->conn->prepare($insertQuery);
         $insertStmt->execute([
-            ':email' => $email,
+            ':user_id' => $user_id,
             ':product_id' => $productId
         ]);
     }
-    public function isProductInWishlist($email, $productId)
+    public function isProductInWishlist($user_id, $productId)
     {
-        $query = "SELECT COUNT(*) FROM wishlist WHERE email = :email AND product_id = :product_id";
+        $query = "SELECT COUNT(*) FROM wishlist WHERE user_id = :user_id AND product_id = :product_id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([
-            ':email' => $email,
+            ':user_id' => $user_id,
             ':product_id' => $productId
         ]);
         return $stmt->fetchColumn() > 0;
     }
 
-    // Thêm sản phẩm vào danh sách yêu thích
-    public function addToWishlist($email, $productId)
+    public function addToWishlist($user_id, $productId)
     {
-        $query = "INSERT INTO wishlist (email, product_id) VALUES (:email, :product_id)";
+        $query = "INSERT INTO wishlist (user_id, product_id) VALUES (:user_id, :product_id)";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([
-            ':email' => $email,
+            ':user_id' => $user_id,
             ':product_id' => $productId
         ]);
     }
-
-    // Xóa sản phẩm khỏi danh sách yêu thích
-    public function removeFromWishlist($email, $productId)
+    public function removeFromWishlist($user_id, $productId)
     {
-        $query = "DELETE FROM wishlist WHERE email = :email AND product_id = :product_id";
+        $query = "DELETE FROM wishlist WHERE user_id = :user_id AND product_id = :product_id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([
-            ':email' => $email,
+            ':user_id' => $user_id,
             ':product_id' => $productId
         ]);
     }
-
-    // Lấy danh sách sản phẩm yêu thích của người dùng
-    public function getWishlistByEmail($email)
+    public function getWishlistByUserId($user_id)
     {
         $query = "SELECT p.* FROM products p
-                  JOIN wishlist w ON p.id = w.product_id
-                  WHERE w.email = :email";
+              JOIN wishlist w ON p.id = w.product_id
+              WHERE w.user_id = :user_id";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([':email' => $email]);
+        $stmt->execute([':user_id' => $user_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getUserByEmail($email)
+
+    public function getUserByUserId($user_id)
     {
         try {
-            $sql = "SELECT * FROM users WHERE email = :email";
+            $sql = "SELECT * FROM users WHERE id = :user_id";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':user_id', $user_id);
             $stmt->execute();
             return $stmt->fetch();
         } catch (Exception $e) {
             echo "ERROR" . $e->getMessage();
             return null;
         }
+    }
+    public function addProductToCart($user_id, $productId, $quantity, $size)
+    {
+        $stmt = $this->conn->prepare("INSERT INTO cart (user_id, product_id, quantity, size) VALUES (?, ?, ?, ?)");
+        return $stmt->execute([$user_id, $productId, $quantity, $size]);
+    }
+    public function getTotalQuantityByUserId($user_id)
+    {
+        $query = "SELECT SUM(quantity) AS total_quantity FROM cart WHERE user_id = :user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':user_id' => $user_id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total_quantity'] ?? 0;
+    }
+    public function getTotalCartByUserId($user_id)
+    {
+        $query = "SELECT SUM(quantity) AS total_quantity FROM cart WHERE user_id = :user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':user_id' => $user_id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total_quantity'] ?? 0;
+    }
+    public function getAllCartByUserId($user_id)
+    {
+        $query = "
+        SELECT p.id, p.name, p.price, c.quantity, c.cart_id, c.size, c.created_at
+        FROM cart c
+        JOIN products p ON c.product_id = p.id
+        WHERE c.user_id = :user_id
+        ORDER BY c.created_at DESC
+    ";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':user_id' => $user_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getCartByProductAndSize($user_id, $productId, $size)
+    {
+        $sql = "SELECT * FROM cart WHERE user_id = :user_id AND product_id = :product_id AND size = :size";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':product_id', $productId);
+        $stmt->bindParam(':size', $size);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function updateCartQuantity($user_id, $productId, $size, $newQuantity)
+    {
+        $sql = "UPDATE cart SET quantity = :quantity WHERE user_id = :user_id AND product_id = :product_id AND size = :size";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':quantity', $newQuantity);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':product_id', $productId);
+        $stmt->bindParam(':size', $size);
+        return $stmt->execute();
+    }
+    public function updateQuantity($user_id, $id, $soluongtanggiam)
+    {
+        $sql = "UPDATE cart SET quantity = quantity + :soluongtanggiam WHERE cart_id = :id AND user_id = :user_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':soluongtanggiam', $soluongtanggiam);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+
+        $affectedRows = $stmt->rowCount();
+        if ($affectedRows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function getQuantity($id, $user_id)
+    {
+        $sql = "SELECT quantity FROM cart WHERE cart_id = :id AND user_id = :user_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['quantity'] : 0;
+    }
+    public function getStockByProductIdAndSize($product_id, $size)
+    {
+        $sql = "SELECT stock FROM product_variants WHERE product_id = :product_id AND size = :size";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':product_id', $product_id);
+        $stmt->bindParam(':size', $size);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['stock'] : 0;
+    }
+    public function removeProductFromCart($cart_id, $user_id)
+    {
+        $sql = "DELETE FROM cart WHERE cart_id = :cart_id AND user_id = :user_id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':cart_id', $cart_id);
+        $stmt->bindParam(':user_id', $user_id);
+        return $stmt->execute();
+    }
+    public function getCartItemById($id, $user_id)
+    {
+        $query = "
+        SELECT 
+            p.id AS product_id, 
+            p.name AS product_name, 
+            p.price, 
+            c.quantity, 
+            c.cart_id, 
+            c.size, 
+            c.created_at
+        FROM cart c
+        JOIN products p ON c.product_id = p.id
+        WHERE c.cart_id = :cart_id AND c.user_id = :user_id
+        LIMIT 1
+    ";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':cart_id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function getTotalPrice($user_id)
+    {
+        $query = "
+        SELECT SUM(c.quantity * p.price) AS total_price
+        FROM cart c
+        JOIN products p ON c.product_id = p.id
+        WHERE c.user_id = :user_id
+    ";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total_price'] ?? 0;
+    }
+    public function getCartById($cart_id, $user_id)
+    {
+        $query = " SELECT * FROM cart WHERE cart_id = :cart_id AND user_id = :user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':cart_id', $cart_id, PDO::PARAM_INT);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function getStock($product_id, $size)
+    {
+        $query = "
+        SELECT stock
+        FROM product_variants
+        WHERE product_id = :product_id AND size = :size
+    ";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+        $stmt->bindParam(':size', $size, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['stock'] ?? 0; // Trả về 0 nếu không có kết quả
     }
 }

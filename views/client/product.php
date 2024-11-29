@@ -68,11 +68,16 @@
                 </div>
                 <div class="flex gap-4 my-4">
                     <?php foreach ($size as $item): ?>
-                        <div class="border border-gray-400 w-[46px] h-[30px] flex items-center justify-center text-gray-500 <?= $item['stock'] == 0 ? 'line-through cursor-not-allowed opacity-50 bg-gray-100' : 'cursor-pointer hover:border-black hover:text-black' ?>" <?= $item['stock'] == 0 ? 'disabled' : '' ?>>
+                        <div class="border border-black w-[46px] h-[30px] flex items-center justify-center text-black size-option 
+        <?= $item['stock'] == 0 ? 'line-through cursor-not-allowed opacity-50 bg-gray-100' : 'cursor-pointer hover:bg-gray-100' ?>"
+                            data-size="<?= $item['size'] ?>" data-stock="<?= $item['stock'] ?>"
+                            <?= $item['stock'] == 0 ? 'disabled' : '' ?>>
                             <?= $item['size'] ?>
                         </div>
                     <?php endforeach; ?>
                 </div>
+
+
                 <div class="text-xs flex items-center mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-3 h-3 text-gray-500">
                         <path d="M177.9 494.1c-18.7 18.7-49.1 18.7-67.9 0L17.9 401.9c-18.7-18.7-18.7-49.1 0-67.9l50.7-50.7 48 48c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6l-48-48 41.4-41.4 48 48c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6l-48-48 41.4-41.4 48 48c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6l-48-48 41.4-41.4 48 48c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6l-48-48 50.7-50.7c18.7-18.7 49.1-18.7 67.9 0l92.1 92.1c18.7 18.7 18.7 49.1 0 67.9L177.9 494.1z" />
@@ -94,7 +99,8 @@
                     </div>
                 </div>
                 <div class="flex gap-4 mb-20">
-                    <div class="bg-black my-4 text-lg font-semibold text-white w-[174px] h-[48px] rounded-tl-[15px] rounded-br-[15px] flex justify-center items-center hover:bg-white hover:text-black hover:border hover:border-black cursor-pointer transition-all duration-300">
+                    <div class="add-to-cart bg-black my-4 text-lg font-semibold text-white w-[174px] h-[48px] rounded-tl-[15px] rounded-br-[15px] flex justify-center items-center hover:bg-white hover:text-black hover:border hover:border-black cursor-pointer transition-all duration-300"
+                        data-id="<?= $productview['id'] ?>">
                         Thêm vào giỏ
                     </div>
                     <div class="bg-white my-4 text-lg font-semibold text-black border border-black w-[124px] h-[46px] rounded-tl-[15px] rounded-br-[15px] flex justify-center items-center hover:bg-black hover:text-white transition-all duration-300 cursor-pointer">
@@ -145,7 +151,6 @@
         <div class="grid grid-cols-5 gap-8 mb-8">
             <?php foreach ($viewedProducts as $product): ?>
                 <div class="relative">
-                    <!-- Thêm liên kết cho ảnh -->
                     <a href="?action=product&id=<?= urlencode($product['id']) ?>">
                         <img src="<?= $this->WebModel->getMainProductImage($product['id']) ?>" class="pb-2" alt="">
                     </a>
@@ -170,11 +175,10 @@
                             <?php endforeach; ?>
                         </div>
                         <?php
-                        $email = $_SESSION['email'];
-                        $productId = $product['id']; // Lấy ID sản phẩm từ mảng sản phẩm
-                        $isInWishlist = $this->checkWishlistStatus($email, $productId);
+                        $user_id = $_SESSION['id'];
+                        $productId = $product['id'];
+                        $isInWishlist = $this->checkWishlistStatus($user_id, $productId);
                         ?>
-                        <!-- Hiển thị nút xóa nếu sản phẩm có trong wishlist -->
                         <a href="javascript:void(0);" class="remove-wishlist <?php if (!$isInWishlist) {
                                                                                     echo 'hidden';
                                                                                 } ?>" data-id="<?= $product['id'] ?>">
@@ -182,7 +186,6 @@
                                 <path fill="#ff0000" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
                             </svg>
                         </a>
-                        <!-- Hiển thị nút thêm nếu sản phẩm không có trong wishlist -->
                         <a href="javascript:void(0);" class="add-wishlist <?php if ($isInWishlist) {
                                                                                 echo 'hidden';
                                                                             } ?>" data-id="<?= $product['id'] ?>">
@@ -192,7 +195,6 @@
                         </a>
 
                     </div>
-                    <!-- Thêm liên kết cho tên -->
                     <a href="?action=product&id=<?= urlencode($product['id']) ?>" class="text-sm block hover:text-red-500">
                         <?= htmlspecialchars($product['name']) ?>
                     </a>
@@ -212,7 +214,6 @@
         <div class="grid grid-cols-5 gap-8 mb-8">
             <?php foreach ($sanphamtuongtu as $product): ?>
                 <div class="relative">
-                    <!-- Thêm liên kết cho ảnh -->
                     <a href="?action=product&id=<?= urlencode($product['id']) ?>">
                         <img src="<?= $this->WebModel->getMainProductImage($product['id']) ?>" class="pb-2" alt="">
                     </a>
@@ -237,11 +238,10 @@
                             <?php endforeach; ?>
                         </div>
                         <?php
-                        $email = $_SESSION['email'];
-                        $productId = $product['id']; // Lấy ID sản phẩm từ mảng sản phẩm
-                        $isInWishlist = $this->checkWishlistStatus($email, $productId);
+                        $user_id = $_SESSION['id'];
+                        $productId = $product['id'];
+                        $isInWishlist = $this->checkWishlistStatus($user_id, $productId);
                         ?>
-                        <!-- Hiển thị nút xóa nếu sản phẩm có trong wishlist -->
                         <a href="javascript:void(0);" class="remove-wishlist <?php if (!$isInWishlist) {
                                                                                     echo 'hidden';
                                                                                 } ?>" data-id="<?= $product['id'] ?>">
@@ -249,7 +249,6 @@
                                 <path fill="#ff0000" d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
                             </svg>
                         </a>
-                        <!-- Hiển thị nút thêm nếu sản phẩm không có trong wishlist -->
                         <a href="javascript:void(0);" class="add-wishlist <?php if ($isInWishlist) {
                                                                                 echo 'hidden';
                                                                             } ?>" data-id="<?= $product['id'] ?>">
@@ -278,8 +277,95 @@
         <banner>
             <img src="./public/image/banner1.webp" class="rounded-tl-[80px] rounded-br-[80px] my-7" alt="">
         </banner>
+        <div id="alert-3" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 hidden" role="alert">
+            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div class="ms-3 text-sm font-medium">
+                Thêm sản phẩm vào giỏ hàng thành công!
+            </div>
+            <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
+                <span class="sr-only">Close</span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+            </button>
+        </div>
     </article>
     <hr>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let selectedSize = null;
+            let quantity = 1;
+            const sizeElements = document.querySelectorAll('.size-option');
+            const quantityDisplay = document.getElementById('quantityDisplay');
+            sizeElements.forEach(sizeElement => {
+                sizeElement.addEventListener('click', function() {
+                    if (this.hasAttribute('disabled')) {
+                        return;
+                    }
+                    sizeElements.forEach(el => {
+                        el.classList.remove('font-semibold', 'border-1', 'border-red-600', 'text-red-600', 'bg-red-100', 'text-black');
+                    });
+                    this.classList.add('font-semibold', 'border-1', 'border-red-600', 'text-red-600', 'bg-red-100', 'transition-all', 'duration-300');
+                    this.classList.add('text-black');
+                    selectedSize = this.getAttribute('data-size');
+                    console.log('Size đã chọn:', selectedSize);
+                });
+            });
+            document.getElementById('increaseBtn').addEventListener('click', function() {
+                quantity++;
+                quantityDisplay.textContent = quantity;
+            });
+            document.getElementById('decreaseBtn').addEventListener('click', function() {
+                if (quantity > 1) {
+                    quantity--;
+                    quantityDisplay.textContent = quantity;
+                }
+            });
+            document.querySelector('.add-to-cart').addEventListener('click', function() {
+                const quantityValue = parseInt(quantityDisplay.textContent);
+                if (!selectedSize) {
+                    alert('Vui lòng chọn size!');
+                    return;
+                }
+                const productId = this.getAttribute('data-id');
+                if (!selectedSize || quantityValue <= 0) {
+                    alert('Vui lòng chọn size và số lượng hợp lệ!');
+                    return;
+                }
+                fetch('?action=addcart', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            product_id: productId,
+                            quantity: quantityValue,
+                            size: selectedSize,
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const alertBox = document.getElementById('alert-3');
+                            alertBox.classList.remove('hidden');
+                            setTimeout(() => {
+                                alertBox.classList.add('hidden');
+                            }, 3000);
+                            alert(data.message || 'Thêm vào giỏ hàng thất bại!');
+                        } else {
+                            alert(data.message || 'Thêm vào giỏ hàng thất bại!');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Lỗi:', error);
+                        alert('Đã xảy ra lỗi, vui lòng thử lại!');
+                    });
+            });
+        });
+    </script>
     <script src="views/client/js/tabshow.js"></script>
     <script src="views/client/js/product.js"></script>
     <script src="views/client/js/ajaxproduct_love.js"></script>

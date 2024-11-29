@@ -21,26 +21,27 @@ class WebController
     {
         include "./views/client/register.php";
     }
-    public function addToViewedProducts($email, $productId)
+    public function addToViewedProducts($user_id, $productId)
     {
-        $productExists = $this->WebModel->checkProductExists($email, $productId);
+        $productExists = $this->WebModel->checkProductExists($user_id, $productId);
 
         if ($productExists) {
             return;
         }
-        $viewedCount = $this->WebModel->getViewedCount($email);
+        $viewedCount = $this->WebModel->getViewedCount($user_id);
         if ($viewedCount >= 6) {
-            $this->WebModel->deleteOldestViewedProduct($email);
+            $this->WebModel->deleteOldestViewedProduct($user_id);
         }
-        $this->WebModel->addProductViewed($email, $productId);
+        $this->WebModel->addProductViewed($user_id, $productId);
     }
 
     public function product()
     {
         $id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : 0;
         $email = $_SESSION['email'];
-        $this->addToViewedProducts($email, $id);
-        $idviewedproduct = $this->WebModel->getViewedProducts($email, $id);
+        $user_id = $_SESSION['id'];
+        $this->addToViewedProducts($user_id, $id);
+        $idviewedproduct = $this->WebModel->getViewedProducts($user_id, $id);
         $productview = $this->WebModel->getProductById($id);
         $sub_subcategories = $this->WebModel->getSubSubSategoriesById($productview['sub_subcategory_id']);
         $imgmain = $this->WebModel->getMainProductImage($productview['id']);
@@ -102,22 +103,12 @@ class WebController
     {
         include "./views/client/chinh-sach-the-thanh-vien.php";
     }
-    // Trong Controller
     public function addToWishlist()
     {
-        // Kiểm tra nếu người dùng đã đăng nhập
-        if (!isset($_SESSION['email'])) {
-            echo json_encode(['success' => false]);
-            exit;
-        }
-
-        $email = $_SESSION['email'];
+        $user_id = $_SESSION['id'];
         $productId = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : 0;
-
-        // Kiểm tra ID sản phẩm hợp lệ
-        if ($productId && !$this->WebModel->isProductInWishlist($email, $productId)) {
-            // Thêm sản phẩm vào wishlist
-            $this->WebModel->addToWishlist($email, $productId);
+        if ($productId && !$this->WebModel->isProductInWishlist($user_id, $productId)) {
+            $this->WebModel->addToWishlist($user_id, $productId);
             echo json_encode(['success' => true, 'action' => 'added']);
         } else {
             echo json_encode(['success' => false]);
@@ -125,40 +116,135 @@ class WebController
 
         exit;
     }
-
     public function removeFromWishlist()
     {
-        // Kiểm tra nếu người dùng đã đăng nhập
-        if (!isset($_SESSION['email'])) {
-            echo json_encode(['success' => false]);
-            exit;
-        }
-
-        $email = $_SESSION['email'];
+        $user_id = $_SESSION['id'];
         $productId = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : 0;
 
-        if ($productId && $this->WebModel->isProductInWishlist($email, $productId)) {
-            // Xóa sản phẩm khỏi wishlist
-            $this->WebModel->removeFromWishlist($email, $productId);
+        if ($productId && $this->WebModel->isProductInWishlist($user_id, $productId)) {
+            $this->WebModel->removeFromWishlist($user_id, $productId);
             echo json_encode(['success' => true, 'action' => 'removed']);
         } else {
             echo json_encode(['success' => false]);
         }
-
         exit;
     }
-    // Hiển thị danh sách yêu thích
     public function showWishlist()
     {
-        $email = $_SESSION['email'];
-        $user = $this->WebModel->getUserByEmail($email);
-        $wishlist = $this->WebModel->getWishlistByEmail($email);
-
+        $user_id = $_SESSION['id'];
+        $user = $this->WebModel->getUserByUserId($user_id);
+        $wishlist = $this->WebModel->getWishlistByUserId($user_id);
         include './views/client/product_love.php';
     }
-
-    public function checkWishlistStatus($email, $productId)
+    public function cart()
     {
-        return $this->WebModel->isProductInWishlist($email, $productId);
+        $user_id = $_SESSION['id'];
+        $cart = $this->WebModel->getAllCartByUserId($user_id);
+        $totalproduct = $this->WebModel->getTotalQuantityByUserId($user_id);
+        $tong = 0;
+        foreach ($cart as $item) {
+            $tong = $tong + $item['quantity'] * $item['price'];
+        };
+        include './views/client/cart.php';
+    }
+    public function checkWishlistStatus($user_id, $productId)
+    {
+        return $this->WebModel->isProductInWishlist($user_id, $productId);
+    }
+    public function addToCart()
+    {
+        if ($_GET['action'] === 'addcart') {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $data = json_decode(file_get_contents('php://input'), true);
+                if (isset($data['product_id'])) {
+                    $email = $_SESSION['email'];
+                    $user_id = $_SESSION['id'];
+                    $productId = $data['product_id'];
+                    $size = $data['size'];
+                    $quantity = $data['quantity'];
+                    $existingProduct = $this->WebModel->getCartByProductAndSize($user_id, $productId, $size);
+                    if ($existingProduct) {
+                        $newQuantity = $existingProduct['quantity'] + $quantity;
+                        $result = $this->WebModel->updateCartQuantity($user_id, $productId, $size, $newQuantity);
+                    } else {
+                        $result = $this->WebModel->addProductToCart($user_id, $productId, $quantity, $size);
+                    }
+                    if ($result) {
+                        echo json_encode(['success' => true, 'message' => 'Thêm sản phẩm thành công']);
+                    } else {
+                        echo json_encode(['success' => false, 'message' => 'Không thể thêm sản phẩm vào giỏ hàng.']);
+                    }
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Dữ liệu không hợp lệ.']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Phương thức HTTP không được hỗ trợ.']);
+            }
+        }
+    }
+    public function updateQuantity()
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        if (isset($data['id'], $data['delta'])) {
+            $id = $data['id'];
+            $delta = $data['delta'];
+            $user_id = $_SESSION['id'];
+            $product = $this->WebModel->getCartItemById($id, $user_id);
+            $product_id = $product['product_id'];
+            $size = $product['size'];
+            $stock = $this->WebModel->getStockByProductIdAndSize($product_id, $size);
+            $currentQuantity = $product['quantity'];
+            if ($delta < 0 && $currentQuantity <= 1) {
+                echo json_encode(['success' => false, 'message' => 'Số lượng không thể giảm dưới 1']);
+                return;
+            }
+            if ($delta > 0) {
+                if ($currentQuantity + $delta > $stock) {
+                    $delta = $stock - $currentQuantity;
+                    echo json_encode(['success' => false, 'message' => 'Số lượng sản phẩm đã đạt tối đa']);
+                    return;
+                }
+            }
+            $result = $this->WebModel->updateQuantity($user_id, $id, $delta);
+            if ($result) {
+                $newQuantity = $this->WebModel->getQuantity($id, $user_id);
+                $totalProduct = $this->WebModel->getTotalQuantityByUserId($user_id);
+                $totalPrice = $this->WebModel->getTotalPrice($user_id);
+                echo json_encode([
+                    'success' => true,
+                    'newQuantity' => $newQuantity,
+                    'price' => $product['price'],
+                    'totalProduct' => $totalProduct,
+                    'totalPrice' => $totalPrice,
+                ]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Không thể cập nhật số lượng.']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Thiếu dữ liệu']);
+        }
+    }
+    public function removeProductFromCartAction()
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+        if (isset($data['cart_id']) && isset($data['user_id'])) {
+            $cart_id = $data['cart_id'];
+            $user_id = $data['user_id'];
+            $result = $this->WebModel->removeProductFromCart($cart_id, $user_id);
+            if ($result) {
+                $totalProduct = $this->WebModel->getTotalQuantityByUserId($user_id);
+                $totalPrice = $this->WebModel->getTotalPrice($user_id);
+                echo json_encode([
+                    'success' => true,
+                    'totalProduct' => $totalProduct,
+                    'totalPrice' => $totalPrice,
+                ]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Không thể xóa sản phẩm.']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Thiếu dữ liệu']);
+        }
     }
 }
