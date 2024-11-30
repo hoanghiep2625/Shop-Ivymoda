@@ -1,5 +1,5 @@
 <?php require_once "partials/header.php" ?>
-
+s
 <body class="mx-[8%] ">
     <?php require_once "partials/menu.php" ?>
     <article>
