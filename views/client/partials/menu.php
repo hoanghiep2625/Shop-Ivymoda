@@ -61,7 +61,6 @@
                 });
             });
         </script>
-
         <a href="?action=cart" class="ml-4 mr-8"><img src="./public/icon/cart.svg" alt="Cart" class="w-5 h-auto" /></a>
     </div>
 </header>

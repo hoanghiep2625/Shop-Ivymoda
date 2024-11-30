@@ -52,6 +52,9 @@ switch ($action) {
     case 'updateQuantity':
         $webController->updateQuantity();
         break;
+    case 'hoanthanhdon':
+        $webController->hoanthanhdon();
+        break;
     case 'removeProductFromCart':
         $webController->removeProductFromCartAction();
         break;
@@ -81,6 +84,15 @@ switch ($action) {
         break;
     case 'chinhsachdoitra':
         $webController->chinhsachdoitra();
+        break;
+    case 'orders':
+        $webController->orders();
+        break;
+    case 'order_details':
+        $webController->order_details();
+        break;
+    case 'placeOrder':
+        $webController->placeOrder();
         break;
     case 'chinhsachbaohanh':
         $webController->chinhsachbaohanh();

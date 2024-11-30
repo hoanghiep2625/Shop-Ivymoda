@@ -11,6 +11,45 @@ class WebController
     {
         include "./views/client/login.php";
     }
+    public function getCityNameById($id, $data)
+    {
+        foreach ($data as $city) {
+            if ($city['Id'] == $id) {
+                return $city['Name'];
+            }
+        }
+        return null;
+    }
+    public function getDistrictNameById($cityId, $districtId, $data)
+    {
+        foreach ($data as $city) {
+            if ($city['Id'] == $cityId) {
+                foreach ($city['Districts'] as $district) {
+                    if ($district['Id'] == $districtId) {
+                        return $district['Name'];
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    public function getCommuneNameById($cityId, $districtId, $communeId, $data)
+    {
+        foreach ($data as $city) {
+            if ($city['Id'] == $cityId) {
+                foreach ($city['Districts'] as $district) {
+                    if ($district['Id'] == $districtId) {
+                        foreach ($district['Wards'] as $commune) {
+                            if ($commune['Id'] == $communeId) {
+                                return $commune['Name'];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
     public function trangchu()
     {
         $productsnew = $this->WebModel->get5spnew();
@@ -38,10 +77,19 @@ class WebController
     public function product()
     {
         $id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : 0;
-        $email = $_SESSION['email'];
-        $user_id = $_SESSION['id'];
-        $this->addToViewedProducts($user_id, $id);
-        $idviewedproduct = $this->WebModel->getViewedProducts($user_id, $id);
+        $email = isset($_SESSION['email']) ? $_SESSION['email'] : null;
+        $user_id = isset($_SESSION['id']) ? $_SESSION['id'] : null;
+        if ($user_id) {
+            $this->addToViewedProducts($user_id, $id);
+            $idviewedproduct = $this->WebModel->getViewedProducts($user_id, $id);
+            $viewedProducts = [];
+            foreach ($idviewedproduct as $viewed) {
+                $viewedProduct = $this->WebModel->getProductById($viewed['product_id']);
+                $viewedProducts[] = $viewedProduct;
+            }
+        } else {
+            $viewedProducts = [];
+        }
         $productview = $this->WebModel->getProductById($id);
         $sub_subcategories = $this->WebModel->getSubSubSategoriesById($productview['sub_subcategory_id']);
         $imgmain = $this->WebModel->getMainProductImage($productview['id']);
@@ -49,13 +97,9 @@ class WebController
         $size = $this->WebModel->getSizeProductByProductId($productview['id']);
         $sanphamtuongtu = $this->WebModel->getProductTuongTuBySubSubSategories($productview['sub_subcategory_id'], $productview['id'], $productview['color']);
         $productcolor = $this->WebModel->getAllColorBySku($productview['sku_code'], $id);
-        $viewedProducts = [];
-        foreach ($idviewedproduct as $viewed) {
-            $viewedProduct = $this->WebModel->getProductById($viewed['product_id']);
-            $viewedProducts[] = $viewedProduct;
-        }
         include "./views/client/product.php";
     }
+
 
     public
     function isLightColor($hexColor)
@@ -139,12 +183,13 @@ class WebController
     public function cart()
     {
         $user_id = $_SESSION['id'];
+        if (!isset($_SESSION['id']) || empty($_SESSION['id'])) {
+            header('Location: ?action=showFormlogin');
+            exit;
+        }
         $cart = $this->WebModel->getAllCartByUserId($user_id);
         $totalproduct = $this->WebModel->getTotalQuantityByUserId($user_id);
-        $tong = 0;
-        foreach ($cart as $item) {
-            $tong = $tong + $item['quantity'] * $item['price'];
-        };
+        $tong = $this->WebModel->getTotalPrice($user_id);
         include './views/client/cart.php';
     }
     public function checkWishlistStatus($user_id, $productId)
@@ -159,6 +204,10 @@ class WebController
                 if (isset($data['product_id'])) {
                     $email = $_SESSION['email'];
                     $user_id = $_SESSION['id'];
+                    if (!isset($_SESSION['id']) || empty($_SESSION['id'])) {
+                        header('Location: ?action=showFormlogin');
+                        exit;
+                    }
                     $productId = $data['product_id'];
                     $size = $data['size'];
                     $quantity = $data['quantity'];
@@ -246,5 +295,78 @@ class WebController
         } else {
             echo json_encode(['success' => false, 'message' => 'Thiếu dữ liệu']);
         }
+    }
+    public function loadLocationData()
+    {
+        $json_file = 'includes/json/data.json';
+        if (file_exists($json_file)) {
+            $json_data = file_get_contents($json_file);
+            return json_decode($json_data, true);
+        } else {
+            die("File dữ liệu không tồn tại.");
+        }
+    }
+    public function orders()
+    {
+        $user_id = $_SESSION['id'];
+        $user = $this->WebModel->getUserByUserId($user_id);
+        $orders = $this->WebModel->getOrdersByUserId($user_id);
+        include './views/client/orders.php';
+    }
+    public function order_details()
+    {
+        $order_id = $_GET['id'];
+        $user_id = $_SESSION['id'];
+        $order = $this->WebModel->getOrdersById($order_id);
+        $user = $this->WebModel->getUserByUserId($user_id);
+        $orderDetails = $this->WebModel->getOrderDetailsByOrderId($order_id);
+        include './views/client/order_details.php';
+    }
+    public function placeOrder()
+    {
+        $user_id = $_SESSION['id'];
+        $user = $this->WebModel->getUserByUserId($user_id);
+        $cart = $this->WebModel->getAllCartByUserId($user_id);
+        $totalPrice = $this->WebModel->getTotalPrice($user_id);
+        $city_id = htmlspecialchars($user['city']);
+        $district_id = htmlspecialchars($user['district']);
+        $commune_id = htmlspecialchars($user['commune']);
+        $address = htmlspecialchars($user['address']);
+        $data = $this->loadLocationData();
+        $city_name = $this->getCityNameById($city_id, $data);
+        $district_name = $this->getDistrictNameById($city_id, $district_id, $data);
+        $commune_name = $this->getCommuneNameById($city_id, $district_id, $commune_id, $data);
+        $ship_address = $address . ', ' . $commune_name . ', ' . $district_name . ', ' . $city_name;
+        $total_product = array_reduce($cart, function ($sum, $item) {
+            return $sum + $item['quantity'];
+        }, 0);
+        $result = $this->WebModel->createOrder($user_id, $totalPrice, $total_product, $ship_address, $cart);
+        if ($result['success']) {
+            echo json_encode(['success' => true, 'order_id' => $result['order_id']]);
+        } else {
+            echo json_encode(['success' => false, 'message' => $result['message']]);
+        }
+    }
+    public function hoanthanhdon()
+    {
+        $user_id = $_SESSION['id'];
+        if (!isset($_SESSION['id']) || empty($_SESSION['id'])) {
+            header('Location: ?action=showFormlogin');
+            exit;
+        }
+        $user = $this->WebModel->getUserByUserId($user_id);
+        $cart = $this->WebModel->getAllCartByUserId($user_id);
+        $totalproduct = $this->WebModel->getTotalQuantityByUserId($user_id);
+        $data = $this->loadLocationData();
+
+        $city_id = htmlspecialchars($user['city']);
+        $district_id = htmlspecialchars($user['district']);
+        $commune_id = htmlspecialchars($user['commune']);
+        $address = htmlspecialchars($user['address']);
+        $city_name = $this->getCityNameById($city_id, $data);
+        $district_name = $this->getDistrictNameById($city_id, $district_id, $data);
+        $commune_name = $this->getCommuneNameById($city_id, $district_id, $commune_id, $data);
+        $totalPrice = $this->WebModel->getTotalPrice($user_id);
+        include './views/client/hoan_thanh_don.php';
     }
 }
