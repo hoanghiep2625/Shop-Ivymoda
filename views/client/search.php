@@ -3,7 +3,7 @@
 <body class="mx-[8%]">
     <?php require_once "partials/menu.php" ?>
     <hr class="mb-10">
-
+adjak
     <article class="grid grid-cols-[0.5fr_2.5fr] gap-16 ">
         <div class="">
             <div class="relative inline-block text-left">
