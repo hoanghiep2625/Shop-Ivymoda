@@ -164,11 +164,15 @@ class AdminController
                     $imagePath = "./public/imageSp/" . basename($filename);
                     move_uploaded_file($_FILES['sub_images']['tmp_name'][$index], $imagePath);
 
+                    // Gán is_main cho 2 ảnh đầu tiên
+                    $isMain = ($index === 0) ? 1 : (($index === 1) ? 2 : 0);
+
                     $subimages[] = [
                         'url' => $imagePath,
-                        'is_main' => $index === 0 ? 1 : 0,
+                        'is_main' => $isMain,
                     ];
                 }
+                // Truyền danh sách ảnh vào model
                 $this->AdminModel->addProductImages($productId, $subimages);
             }
             header("Location: /products?success=true");

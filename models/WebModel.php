@@ -29,6 +29,14 @@ class WebModel
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ? $result['image_url'] : null;
     }
+    public function getHoverProductImage($id)
+    {
+        $sql = "SELECT image_url FROM product_images WHERE product_id = ? AND is_main = 2";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['image_url'] : null;
+    }
     public function getProductById($id)
     {
         $sql = "SELECT * FROM products WHERE id = ?";
@@ -148,7 +156,71 @@ class WebModel
         $stmt->execute([':user_id' => $user_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function createOrder($user_id, $total_price, $total_product, $shipping_address, $cart)
+    {
+        try {
+            $this->conn->beginTransaction();
 
+            // Chèn đơn hàng vào bảng orders
+            $queryOrder = "INSERT INTO orders (user_id, total_price, total_product, shipping_address) 
+                           VALUES (:user_id, :total_price, :total_product, :shipping_address)";
+            $stmtOrder = $this->conn->prepare($queryOrder);
+            $stmtOrder->execute([
+                ':user_id' => $user_id,
+                ':total_price' => $total_price,
+                ':total_product' => $total_product,
+                ':shipping_address' => $shipping_address
+            ]);
+            $order_id = $this->conn->lastInsertId();
+            foreach ($cart as $item) {
+                $queryDetail = "INSERT INTO order_details (order_id, product_id, size, quantity, price) 
+                                VALUES (:order_id, :product_id, :size, :quantity, :price)";
+                $stmtDetail = $this->conn->prepare($queryDetail);
+                $stmtDetail->execute([
+                    ':order_id' => $order_id,
+                    ':product_id' => $item['id'],
+                    ':size' => $item['size'],
+                    ':quantity' => $item['quantity'],
+                    ':price' => $item['price']
+                ]);
+            }
+            $deleteCartQuery = "DELETE FROM cart WHERE user_id = :user_id";
+            $stmtDeleteCart = $this->conn->prepare($deleteCartQuery);
+            $stmtDeleteCart->execute([':user_id' => $user_id]);
+
+            $this->conn->commit();
+
+            return ['success' => true, 'order_id' => $order_id];
+        } catch (Exception $e) {
+            $this->conn->rollBack();
+            return ['success' => false, 'message' => $e->getMessage()];
+        }
+    }
+    public function getOrdersByUserId($user_id)
+    {
+        $query = "SELECT order_id, user_id, total_price, order_date, status, shipping_address 
+              FROM orders WHERE user_id = :user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':user_id' => $user_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getOrderDetailsByOrderId($order_id)
+    {
+        $query = "SELECT od.detail_id, od.order_id, od.product_id, od.size, od.quantity, od.price, p.name AS product_name, p.id AS product_id
+              FROM order_details od
+              JOIN products p ON od.product_id = p.id
+              WHERE od.order_id = :order_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':order_id' => $order_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getOrdersById($id)
+    {
+        $query = "SELECT * FROM orders WHERE order_id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     public function getUserByUserId($user_id)
     {
         try {
@@ -196,7 +268,13 @@ class WebModel
         $stmt->execute([':user_id' => $user_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
+    public function getCartByUserId($user_id)
+    {
+        $query = "SELECT * FROM cart WHERE user_id = :user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':user_id' => $user_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function getCartByProductAndSize($user_id, $productId, $size)
     {
         $sql = "SELECT * FROM cart WHERE user_id = :user_id AND product_id = :product_id AND size = :size";
