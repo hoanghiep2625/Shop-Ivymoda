@@ -49,6 +49,9 @@ switch ($action) {
     case 'cart':
         $webController->cart();
         break;
+    case 'search':
+        $webController->search();
+        break;
     case 'updateQuantity':
         $webController->updateQuantity();
         break;

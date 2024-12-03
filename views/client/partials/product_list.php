@@ -1,4 +1,4 @@
- <div class="grid grid-cols-5 gap-8 mb-8">
+ <div class="grid grid-cols-<?= $grid ?> gap-8 mb-8">
      <?php foreach ($products as $product): ?>
          <div class="relative">
              <a href="?action=product&id=<?= urlencode($product['id']) ?>" class="group relative block w-full">

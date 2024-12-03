@@ -2297,6 +2297,22 @@ input:checked + .toggle-bg {
   margin-top: 90px;
 }
 
+.mb-\[\] {
+  margin-bottom: ;
+}
+
+.mb-\[50px\] {
+  margin-bottom: 50px;
+}
+
+.mt-\[120px\] {
+  margin-top: 120px;
+}
+
+.mt-\[0px\] {
+  margin-top: 0px;
+}
+
 .block {
   display: block;
 }
@@ -2389,6 +2405,10 @@ input:checked + .toggle-bg {
   height: 174px;
 }
 
+.h-\[18px\] {
+  height: 18px;
+}
+
 .h-\[24px\] {
   height: 24px;
 }
@@ -2397,8 +2417,12 @@ input:checked + .toggle-bg {
   height: 30px;
 }
 
-.h-\[310px\] {
-  height: 310px;
+.h-\[32px\] {
+  height: 32px;
+}
+
+.h-\[350px\] {
+  height: 350px;
 }
 
 .h-\[3px\] {
@@ -2445,36 +2469,8 @@ input:checked + .toggle-bg {
   height: 100vh;
 }
 
-.h-\[450px\] {
-  height: 450px;
-}
-
-.h-\[400px\] {
-  height: 400px;
-}
-
-.h-\[390px\] {
-  height: 390px;
-}
-
-.h-\[370px\] {
-  height: 370px;
-}
-
-.h-\[350px\] {
-  height: 350px;
-}
-
 .min-h-\[350px\] {
   min-height: 350px;
-}
-
-.min-h-\[\] {
-  min-height: ;
-}
-
-.min-h-\[400px\] {
-  min-height: 400px;
 }
 
 .w-1\/2 {
@@ -2569,6 +2565,10 @@ input:checked + .toggle-bg {
   width: 174px;
 }
 
+.w-\[18px\] {
+  width: 18px;
+}
+
 .w-\[1px\] {
   width: 1px;
 }
@@ -2579,6 +2579,10 @@ input:checked + .toggle-bg {
 
 .w-\[256px\] {
   width: 256px;
+}
+
+.w-\[300px\] {
+  width: 300px;
 }
 
 .w-\[320px\] {
@@ -2605,12 +2609,20 @@ input:checked + .toggle-bg {
   width: 46px;
 }
 
+.w-\[47px\] {
+  width: 47px;
+}
+
 .w-\[48\.5\%\] {
   width: 48.5%;
 }
 
 .w-\[5\.5rem\] {
   width: 5.5rem;
+}
+
+.w-\[52\.5\%\] {
+  width: 52.5%;
 }
 
 .w-\[80\%\] {
@@ -2637,40 +2649,16 @@ input:checked + .toggle-bg {
   width: 1px;
 }
 
-.w-\[\] {
-  width: ;
-}
-
-.w-\[50\%\] {
-  width: 50%;
-}
-
-.w-\[55\%\] {
-  width: 55%;
-}
-
-.w-\[51\%\] {
-  width: 51%;
-}
-
-.w-\[53\%\] {
-  width: 53%;
-}
-
-.w-\[52\%\] {
-  width: 52%;
-}
-
-.w-\[52\.5\%\] {
-  width: 52.5%;
-}
-
 .max-w-\[100\%\] {
   max-width: 100%;
 }
 
 .max-w-none {
   max-width: none;
+}
+
+.max-w-xl {
+  max-width: 36rem;
 }
 
 .flex-1 {
@@ -2784,6 +2772,10 @@ input:checked + .toggle-bg {
   grid-template-columns: repeat(7, minmax(0, 1fr));
 }
 
+.grid-cols-\[0\.5fr_2\.5fr\] {
+  grid-template-columns: 0.5fr 2.5fr;
+}
+
 .grid-cols-\[1\.2fr_5fr\] {
   grid-template-columns: 1.2fr 5fr;
 }
@@ -2802,6 +2794,10 @@ input:checked + .toggle-bg {
 
 .grid-cols-\[1fr_1\.3fr_1fr\] {
   grid-template-columns: 1fr 1.3fr 1fr;
+}
+
+.grid-cols-\[1fr_1fr_1fr_1fr\] {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .grid-cols-\[1fr_2\.5fr\] {
@@ -2888,6 +2884,10 @@ input:checked + .toggle-bg {
   gap: 3rem;
 }
 
+.gap-16 {
+  gap: 4rem;
+}
+
 .gap-2 {
   gap: 0.5rem;
 }
@@ -2914,6 +2914,10 @@ input:checked + .toggle-bg {
 
 .gap-8 {
   gap: 2rem;
+}
+
+.gap-\[230px\] {
+  gap: 230px;
 }
 
 .gap-\[2px\] {
@@ -3097,6 +3101,10 @@ input:checked + .toggle-bg {
   border-width: 2px;
 }
 
+.border-\[1px\] {
+  border-width: 1px;
+}
+
 .border-\[6px\] {
   border-width: 6px;
 }
@@ -3136,6 +3144,11 @@ input:checked + .toggle-bg {
 .border-blue-300 {
   --tw-border-opacity: 1;
   border-color: rgb(164 202 254 / var(--tw-border-opacity));
+}
+
+.border-blue-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(63 131 248 / var(--tw-border-opacity));
 }
 
 .border-blue-600 {
@@ -3197,6 +3210,11 @@ input:checked + .toggle-bg {
   background-color: rgb(108 109 112 / var(--tw-bg-opacity));
 }
 
+.bg-\[\#964B00\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(150 75 0 / var(--tw-bg-opacity));
+}
+
 .bg-\[\#AC2F33\] {
   --tw-bg-opacity: 1;
   background-color: rgb(172 47 51 / var(--tw-bg-opacity));
@@ -3220,6 +3238,11 @@ input:checked + .toggle-bg {
 .bg-\[\#fbfbfc\] {
   --tw-bg-opacity: 1;
   background-color: rgb(251 251 252 / var(--tw-bg-opacity));
+}
+
+.bg-\[\#fefec1\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 254 193 / var(--tw-bg-opacity));
 }
 
 .bg-black {
@@ -3262,6 +3285,11 @@ input:checked + .toggle-bg {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
+.bg-gray-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+}
+
 .bg-gray-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
@@ -3281,9 +3309,29 @@ input:checked + .toggle-bg {
   background-color: rgb(243 250 247 / var(--tw-bg-opacity));
 }
 
+.bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(14 159 110 / var(--tw-bg-opacity));
+}
+
 .bg-indigo-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(88 80 236 / var(--tw-bg-opacity));
+}
+
+.bg-orange-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 90 31 / var(--tw-bg-opacity));
+}
+
+.bg-pink-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(231 70 148 / var(--tw-bg-opacity));
+}
+
+.bg-purple-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(144 97 249 / var(--tw-bg-opacity));
 }
 
 .bg-red-100 {
@@ -3305,9 +3353,18 @@ input:checked + .toggle-bg {
   background-color: rgb(255 255 255 / 0.5);
 }
 
+.bg-yellow-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(252 233 106 / var(--tw-bg-opacity));
+}
+
 .bg-yellow-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(250 202 21 / var(--tw-bg-opacity));
+}
+
+.bg-transparent {
+  background-color: transparent;
 }
 
 .fill-current {
@@ -3547,8 +3604,8 @@ input:checked + .toggle-bg {
   padding-top: 14px;
 }
 
-.pt-6 {
-  padding-top: 1.5rem;
+.pb-\[50px\] {
+  padding-bottom: 50px;
 }
 
 .text-left {
@@ -3557,10 +3614,6 @@ input:checked + .toggle-bg {
 
 .text-center {
   text-align: center;
-}
-
-.text-right {
-  text-align: right;
 }
 
 .font-sans {
@@ -4277,19 +4330,14 @@ input:checked + .toggle-bg {
   color: rgb(240 82 82 / var(--tw-text-opacity));
 }
 
-.hover\:text-white:hover {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.hover\:text-blue-800:hover {
-  --tw-text-opacity: 1;
-  color: rgb(30 66 159 / var(--tw-text-opacity));
-}
-
 .hover\:text-red-800:hover {
   --tw-text-opacity: 1;
   color: rgb(155 28 28 / var(--tw-text-opacity));
+}
+
+.hover\:text-white:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .hover\:underline:hover {
@@ -4387,12 +4435,12 @@ input:checked + .toggle-bg {
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 
-.group:hover .group-hover\:opacity-100 {
-  opacity: 1;
-}
-
 .group:hover .group-hover\:opacity-0 {
   opacity: 0;
+}
+
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
 }
 
 .dark\:border-blue-500:is(.dark *) {

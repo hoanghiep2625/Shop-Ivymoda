@@ -396,6 +396,73 @@ class WebModel
         $stmt->bindParam(':size', $size, PDO::PARAM_STR);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['stock'] ?? 0; // Trả về 0 nếu không có kết quả
+        return $result['stock'] ?? 0;
+    }
+    public function getFilteredSizeProducts($filters)
+    {
+        $sizeArray = isset($filters) && is_array($filters) ? $filters : [];
+        $conditions = ["pv.stock > 0"];
+        if (!empty($sizeArray)) {
+            $sizePlaceholders = implode(',', array_fill(0, count($sizeArray), '?'));
+            $conditions[] = "pv.size IN ($sizePlaceholders)";
+        }
+        $whereClause = implode(' AND ', $conditions);
+        $sql = "
+        SELECT p.id, p.name, p.color, p.sku_code, p.price, COUNT(DISTINCT pv.size) AS matching_sizes
+        FROM products p
+        INNER JOIN product_variants pv ON p.id = pv.product_id
+        WHERE $whereClause
+    ";
+        if (!empty($sizeArray)) {
+            $sql .= " GROUP BY p.id, p.name, p.color HAVING matching_sizes = ?";
+        } else {
+            $sql .= " GROUP BY p.id, p.name, p.color";
+        }
+        $params = [];
+        if (!empty($sizeArray)) {
+            $params = array_merge($params, $sizeArray);
+            $params[] = count($sizeArray);
+        }
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getFilteredColorProducts($productFilterSize, $filterColor)
+    {
+        // Giữ lại các sản phẩm đã lọc theo kích thước
+        $productFilterSizeArray = $productFilterSize;
+
+        // Nếu không có màu sắc nào được chọn, trả về kết quả đã lọc theo kích thước
+        if (empty($filterColor)) {
+            return $productFilterSizeArray;
+        }
+
+        // Lọc thêm theo màu sắc
+        $filteredProducts = array_filter($productFilterSizeArray, function ($product) use ($filterColor) {
+            return in_array($product['color'], $filterColor);
+        });
+
+        // Trả về sản phẩm sau khi lọc theo màu sắc
+        return array_values($filteredProducts);
+    }
+    public function getFilteredPriceProducts($productFilterColor, $minPrice, $maxPrice)
+    {
+        // Giữ lại các sản phẩm đã lọc theo màu sắc
+        $productFilterColorArray = $productFilterColor;
+
+        // Nếu không có giá tối thiểu hoặc tối đa, trả về tất cả các sản phẩm
+        if (empty($minPrice) && empty($maxPrice)) {
+            return $productFilterColorArray;
+        }
+
+        // Lọc sản phẩm có giá nằm trong khoảng minPrice và maxPrice
+        $filteredProducts = array_filter($productFilterColorArray, function ($product) use ($minPrice, $maxPrice) {
+            // Kiểm tra nếu sản phẩm có giá nằm trong khoảng
+            $productPrice = $product['price'];
+            return ($productPrice >= $minPrice && $productPrice <= $maxPrice);
+        });
+
+        // Trả về danh sách sản phẩm sau khi lọc theo giá
+        return array_values($filteredProducts);
     }
 }

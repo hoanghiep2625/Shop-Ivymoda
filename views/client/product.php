@@ -153,6 +153,7 @@
             <?php
             unset($products);
             $products = $viewedProducts;
+            $grid = 5;
             include 'partials/product_list.php';
             ?>
         <?php endif; ?>

@@ -1,5 +1,5 @@
 <?php require_once "partials/header.php" ?>
-s
+
 <body class="mx-[8%] ">
     <?php require_once "partials/menu.php" ?>
     <article>
@@ -10,7 +10,6 @@ s
         </div>
         <div class="swiper-container-banner1 w-full max-w-[100%] mx-auto overflow-hidden relative">
             <div class="swiper-wrapper">
-                <!-- Các ảnh trong banner 1 -->
                 <div class="swiper-slide">
                     <img src="./public/image/banner1.webp" class="rounded-tl-[80px] rounded-br-[80px] my-7 w-full h-auto" alt="">
                 </div>
@@ -35,6 +34,7 @@ s
         <?php
         unset($products);
         $products = $productsnew;
+        $grid = 5;
         include 'partials/product_list.php';
         ?>
         <div class="p-3 border border-black text-center w-32 h-12 mx-auto rounded-tl-[25px] rounded-br-[25px] mb-12 hover:bg-black hover:text-white transition-all duration-300 cursor-pointer">Xem tất cả</div>
@@ -46,6 +46,7 @@ s
         <?php
         unset($products);
         $products = $productsfall;
+        $grid = 5;
         include 'partials/product_list.php';
         ?>
         <div class="p-3 border border-black text-center w-32 h-12 mx-auto rounded-tl-[25px] rounded-br-[25px] mb-12 hover:bg-black hover:text-white transition-all duration-300 cursor-pointer">Xem tất cả</div>

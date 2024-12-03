@@ -56,6 +56,20 @@ class WebController
         $productsfall = $this->WebModel->get5spfall();
         include "./views/client/home.php";
     }
+    public function search()
+    {
+        $search = 'kkkk';
+        $filters = [
+            'size' => isset($_GET['size']) ? (is_array($_GET['size']) ? $_GET['size'] : [$_GET['size']]) : [],
+            'color' => isset($_GET['color']) ? (is_array($_GET['color']) ? $_GET['color'] : [$_GET['color']]) : [],
+            'minPrice' => isset($_GET['minPrice']) ? $_GET['minPrice'] : null,
+            'maxPrice' => isset($_GET['maxPrice']) ? $_GET['maxPrice'] : null
+        ];
+        $productFilterSize = $this->WebModel->getFilteredSizeProducts($filters['size']);
+        $productFilterColor = $this->WebModel->getFilteredColorProducts($productFilterSize, $filters['color']);
+        $productFilterPrice = $this->WebModel->getFilteredPriceProducts($productFilterColor, $filters['minPrice'], $filters['maxPrice']);
+        include "./views/client/search.php";
+    }
     public function showFormreg()
     {
         include "./views/client/register.php";
