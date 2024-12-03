@@ -104,6 +104,17 @@ class AdminController
         $sub_categories = $this->AdminModel->getSubCategoriesByParentCategoryId($id);
         include "./views/admin/sub_categories.php";
     }
+    public function orders()
+    {
+        $orders = $this->AdminModel->getAllOrders();
+        include "./views/admin/orders.php";
+    }
+    public function view_order()
+    {
+        $id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : null;
+        $order = $this->AdminModel->getOrderById($id);
+        include "./views/admin/view_order.php";
+    }
     public function nhanh_con_con_categories()
     {
         $id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : null;

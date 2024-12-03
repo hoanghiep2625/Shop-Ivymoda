@@ -19,8 +19,12 @@
     <div class="flex items-center">
         <div class="w-80 h-9 border flex">
             <div class="flex px-2 gap-4 items-center">
-                <img src="./public/icon/search.svg" alt="" class="w-4 h-auto" />
-                <input type="text" placeholder="TÌM KIẾM SẢN PHẨM" class="text-xs p-0 outline-none border-0 focus:outline-none focus:ring-0" />
+                <form action="?action=search" method="GET">
+                    <button type="submit">
+                        <img src="./public/icon/search.svg" alt="" class="w-4 h-auto" />
+                    </button>
+                    <input type="text" name="searchname" id="searchname" placeholder="TÌM KIẾM SẢN PHẨM" class="text-xs p-0 outline-none border-0 focus:outline-none focus:ring-0" />
+                </form>
             </div>
         </div>
         <a href="#" class="ml-4"><img src="./public/icon/headphone.svg" alt="Headphone" class="w-5 h-auto" /></a>

@@ -58,7 +58,7 @@ class WebController
     }
     public function search()
     {
-        $search = 'kkkk';
+        $search = $_POST['searchname'];
         $filters = [
             'size' => isset($_GET['size']) ? (is_array($_GET['size']) ? $_GET['size'] : [$_GET['size']]) : [],
             'color' => isset($_GET['color']) ? (is_array($_GET['color']) ? $_GET['color'] : [$_GET['color']]) : [],

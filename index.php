@@ -141,6 +141,13 @@ switch ($action) {
         $adminController->checkUser();
         $adminController->add_product();
         break;
+    case 'orderadmin':
+        $adminController->checkUser();
+        $adminController->orders();
+        break;
+    case 'view_order':
+        $adminController->checkUser();
+        $adminController->view_order();
     case 'addProduct':
         $adminController->checkUser();
         $adminController->addProduct();

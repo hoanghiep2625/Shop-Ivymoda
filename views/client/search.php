@@ -5,6 +5,7 @@
         body {
             font-family: "Montserrat", sans-serif;
         }
+
         .double-slider-box {
             background-color: #fff;
             border-radius: 10px;
@@ -273,13 +274,12 @@
                         LỌC
                     </p>
                 </div>
-
             </div>
         </div>
         </div>
         <div>
             <div class="font-semibold text-2xl">
-                Kết quả tìm kiếm
+                Kết quả tìm kiếm <?= $search ?>
             </div>
             <?php
             unset($products);

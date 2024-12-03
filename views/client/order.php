@@ -6,21 +6,21 @@
         <div>
             <div class="border w-full h-[96.6px] flex justify-center rounded-tl-[20px] rounded-br-[20px] ">
                 <div
-                    class="w-[14px] h-[14px] rounded border-2 border-[#e7e8e9] rounded-full bg-black mt-6 z-10 relative">
+                    class="w-[14px] h-[14px] border-2 border-[#e7e8e9] rounded-full bg-black mt-6 z-10 relative">
                     <p class="text-[12px] mt-4 left-[-20px] w-16 absolute ">
                         Giỏ hàng
                     </p>
                 </div>
                 <div class=" h-[3px] w-[320px] bg-[#e7e8e9] mx-2 mt-[30px]"></div>
                 <div
-                    class="w-[14px] h-[14px] rounded rounded-full bg-white border-2 border-[#e7e8e9] mt-6 z-10 relative">
+                    class="w-[14px] h-[14px] rounded-full bg-white border-2 border-[#e7e8e9] mt-6 z-10 relative">
                     <div class="text-[12px] mt-4 left-[-20px] w-16 absolute ">
                         Đặt hàng
                     </div>
                 </div>
                 <div class=" h-[3px] w-[320px] bg-[#e7e8e9] mx-2 mt-[30px]"></div>
                 <div
-                    class="w-[14px] h-[14px] rounded rounded-full bg-white border-2 border-[#e7e8e9]  mt-6 z-10 relative">
+                    class="w-[14px] h-[14px] rounded-full bg-white border-2 border-[#e7e8e9]  mt-6 z-10 relative">
                     <div class="text-[12px] mt-4 left-[-40px] w-28 absolute ">
                         Hoàn thành đơn
                     </div>

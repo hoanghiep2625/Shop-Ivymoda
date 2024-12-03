@@ -16,6 +16,9 @@
              <li class="px-4 py-2 hover:bg-gray-700">
                  <a href="?action=products" class="block">Quản lý sản phẩm</a>
              </li>
+             <li class="px-4 py-2 hover:bg-gray-700">
+                 <a href="?action=orderadmin" class="block">Quản lý đơn hàng</a>
+             </li>
          </ul>
      </nav>
      <div class="p-4 border-t border-gray-700 text-center">

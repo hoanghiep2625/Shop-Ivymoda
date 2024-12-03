@@ -152,8 +152,20 @@ class AdminModel
         // Lấy ID vừa thêm
         return $this->conn->lastInsertId();
     }
-
-
+public function getOrderById($id){
+    $sql = "SELECT * FROM orders WHERE id = :id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([':id' => $id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+    public function getAllOrders()
+    {
+        $sql = "SELECT * FROM orders";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
     // Thêm hình ảnh sản phẩm
     public function addProductImages($productId, $images)
     {
