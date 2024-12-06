@@ -137,4 +137,12 @@ class UserModel
         $stmt->bindParam(':status', $status);
         return $stmt->execute();
     }
+    public function getAllCategories()
+    {
+        $query = "SELECT * FROM categories";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $categories;
+    }
 }

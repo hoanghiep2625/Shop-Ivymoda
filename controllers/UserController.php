@@ -1,11 +1,15 @@
 <?php
 require_once './models/UserModel.php';
+
+
 class UserController
 {
     public $UserModel;
+    public $WebModel;
     public function __construct()
     {
         $this->UserModel = new UserModel();
+        $this->WebModel = new WebModel();
     }
     public function showFormreg($thatbai = '', $ho = '', $ten = '', $email = '', $sodt = '', $ngaysinh = '', $gioitinh = '', $tinhthanh = '', $quanhuyen = '', $phuongxa = '', $password = '', $diachi = '')
     {
@@ -136,5 +140,10 @@ class UserController
         } else {
             return 'Unknown Device';
         }
+    }
+    public function menu()
+    {
+        $categories = $this->UserModel->getAllCategories();
+        include "./views/client/partials/menu.php";
     }
 }

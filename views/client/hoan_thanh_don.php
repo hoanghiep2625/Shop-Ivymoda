@@ -1,8 +1,7 @@
 <?php require_once "partials/header.php" ?>
 
 <body class="mx-[8%]">
-    <?php require_once "partials/menu.php" ?>
-
+    <?php $this->menu(); ?>
     <article class="mt-[90px] grid grid-cols-[4fr_1.5fr] gap-10 min-h-[350px]">
         <div>
             <div class="border w-full h-[96.6px] flex justify-center rounded-tl-[20px] rounded-br-[20px] ">
@@ -139,14 +138,15 @@
 
             </div>
             <div class="right-[20px]">
-                <a href="?action=placeOrder"
+                <button id="completeOrderButton"
                     class="bg-black border border-black text-white font-semibold transition-all hover:bg-white hover:text-black
         hover:border w-full pt-[14px] pr-[24px] pb-[14px] pl-[24px] rounded-tl-[20px] rounded-br-[20px] flex cursor-pointer">
                     <div class="mx-auto">
                         HOÀN THÀNH
                     </div>
-                </a>
+                </button>
             </div>
+
         </div>
         <div>
             <div class="pb-6">
@@ -154,7 +154,7 @@
                     <div class="flex gap-2">
                         <div class="w-3 h-3 rounded-full bg-black mt-[6px]">
                             <svg xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                viewBox="0 0 448 512">
                                 <path fill="#ffffff"
                                     d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
                             </svg>
@@ -198,6 +198,36 @@
         </div>
     </article>
     <hr>
+    <script>
+        const cart = <?php echo json_encode($cart); ?>;
+        const totalPrice = <?php echo $totalPrice; ?>;
+        document.getElementById('completeOrderButton').addEventListener('click', function(event) {
+            event.preventDefault();
+            fetch('?action=placeOrder', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        cart: cart,
+                        totalPrice: totalPrice
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Đặt hàng thành công!');
+                        window.location.href = '?action=home';
+                    } else {
+                        alert('Có lỗi xảy ra: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Không thể kết nối server, vui lòng thử lại.');
+                    console.error('Error:', error);
+                });
+        });
+    </script>
 </body>
 <?php require_once "partials/footer.php" ?>
 

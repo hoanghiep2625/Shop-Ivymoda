@@ -1,7 +1,7 @@
 <?php require_once "partials/header.php" ?>
 
 <body class="mx-[8%]">
-    <?php require_once "partials/menu.php" ?>
+    <?php $this->menu(); ?>
     <article class="h-auto mx-[8%]">
         <div class="grid grid-cols-[1fr_0.3fr_1fr] ">
             <!-- Cột trái -->

@@ -50,6 +50,11 @@ class WebController
         }
         return null;
     }
+    public function menu()
+    {
+        $categories = $this->WebModel->getAllCategories();
+        include "./views/client/partials/menu.php";
+    }
     public function trangchu()
     {
         $productsnew = $this->WebModel->get5spnew();
@@ -58,7 +63,7 @@ class WebController
     }
     public function search()
     {
-        $search = $_POST['searchname'];
+
         $filters = [
             'size' => isset($_GET['size']) ? (is_array($_GET['size']) ? $_GET['size'] : [$_GET['size']]) : [],
             'color' => isset($_GET['color']) ? (is_array($_GET['color']) ? $_GET['color'] : [$_GET['color']]) : [],
@@ -354,6 +359,10 @@ class WebController
         $total_product = array_reduce($cart, function ($sum, $item) {
             return $sum + $item['quantity'];
         }, 0);
+        if ($total_product == 0) {
+            header('Location: ?action=home');
+            exit;
+        }
         $result = $this->WebModel->createOrder($user_id, $totalPrice, $total_product, $ship_address, $cart);
         if ($result['success']) {
             echo json_encode(['success' => true, 'order_id' => $result['order_id']]);
@@ -363,6 +372,7 @@ class WebController
     }
     public function hoanthanhdon()
     {
+
         $user_id = $_SESSION['id'];
         if (!isset($_SESSION['id']) || empty($_SESSION['id'])) {
             header('Location: ?action=showFormlogin');
@@ -371,6 +381,10 @@ class WebController
         $user = $this->WebModel->getUserByUserId($user_id);
         $cart = $this->WebModel->getAllCartByUserId($user_id);
         $totalproduct = $this->WebModel->getTotalQuantityByUserId($user_id);
+        if ($totalproduct == 0) {
+            header('Location: ?action=home');
+            exit;
+        }
         $data = $this->loadLocationData();
 
         $city_id = htmlspecialchars($user['city']);

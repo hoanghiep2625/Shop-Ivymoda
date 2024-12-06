@@ -1,7 +1,7 @@
 <?php require_once "partials/header.php" ?>
 
 <body class="mx-[8%]">
-    <?php require_once "partials/menu.php" ?>
+    <?php $this->menu(); ?>
     <article class="mt-[90px]">
         <div class="flex gap-4 my-4">
             <div class="text-sm"><a href="?action=home">Trang chủ</a></div>

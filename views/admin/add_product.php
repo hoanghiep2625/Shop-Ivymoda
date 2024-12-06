@@ -540,10 +540,9 @@ include "partials/header.php";
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
                         <div class="flex justify-end">
-                            <button type="reset" class="mr-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded shadow">Hủy</button>
+                            <a href="javascript:history.back()" class="mr-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded shadow">Quay lại</a>
                             <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded shadow">Thêm sản phẩm</button>
                         </div>
                     </form>

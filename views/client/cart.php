@@ -1,7 +1,7 @@
 <?php require_once "partials/header.php" ?>
 
 <body class="mx-[8%]">
-    <?php require_once "partials/menu.php" ?>
+    <?php $this->menu(); ?>
     <article class="grid grid-cols-[4fr_1.5fr] gap-10 mt-[100px]">
         <div>
             <div class="border w-full h-[96.6px] flex justify-center rounded-tl-[20px] rounded-br-[20px] ">
@@ -84,7 +84,7 @@
                 <a
                     class="bg-white border border-black w-[250px] transition-all pt-[14px] pr-[24px] pb-[14px] pl-[24px] rounded-tl-[20px] rounded-br-[20px] hover:bg-black hover:text-white flex"
                     href="javascript:history.back()">
-                    <div class="mx-auto">
+                    <div class="mx-auto font-semibold">
                         <= Tiếp tục mua hàng
                             </div>
                 </a>
@@ -119,14 +119,21 @@
                 <hr>
             </div>
             <div>
-                <a href="?action=hoanthanhdon"
-                    class="bg-black border border-black text-white font-semibold transition-all hover:bg-white hover:text-black
-                hover:border w-[400px]  pt-[14px] pr-[24px] pb-[14px] pl-[24px] rounded-tl-[20px] rounded-br-[20px]  flex ">
-                    <div class="mx-auto">
-                        ĐẶT HÀNG
-                    </div>
-                </a>
+                <?php if ($totalproduct == 0): ?>
+                    <script>
+                        alert("Giỏ hàng của bạn trống, vui lòng thêm sản phẩm để đặt hàng.");
+                    </script>
+                <?php else: ?>
+                    <a href="?action=hoanthanhdon"
+                        class="bg-black border border-black text-white font-semibold transition-all hover:bg-white hover:text-black
+            hover:border w-[400px]  pt-[14px] pr-[24px] pb-[14px] pl-[24px] rounded-tl-[20px] rounded-br-[20px] flex ">
+                        <div class="mx-auto">
+                            ĐẶT HÀNG
+                        </div>
+                    </a>
+                <?php endif; ?>
             </div>
+
         </div>
     </article>
     <hr class="mt-10">
@@ -187,11 +194,10 @@
             }
         });
         document.addEventListener("DOMContentLoaded", function() {
-            // Lắng nghe sự kiện nhấn nút xóa
             document.querySelectorAll("[id^='removeBtn-']").forEach(button => {
                 button.addEventListener("click", function() {
-                    const cartId = this.id.split("-")[1]; // Lấy cart_id từ ID của nút
-                    const userId = <?= $_SESSION['id'] ?>; // Lấy user_id từ session
+                    const cartId = this.id.split("-")[1];
+                    const userId = <?= $_SESSION['id'] ?>;
                     fetch('?action=removeProductFromCart', {
                             method: 'POST',
                             headers: {
@@ -205,7 +211,6 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                // Nếu xóa thành công, xóa dòng sản phẩm khỏi giỏ hàng
                                 const row = document.querySelector(`#removeBtn-${cartId}`).closest('tr');
                                 row.remove();
                                 document.getElementById("totalProductDisplay").textContent = numberWithCommas(data.totalProduct) + " Sản Phẩm";

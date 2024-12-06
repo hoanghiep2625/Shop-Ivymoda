@@ -543,10 +543,9 @@ include "partials/header.php";
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
                         <div class="flex justify-end">
-                            <button type="reset" class="mr-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded shadow">Hủy</button>
+                            <a href="javascript:history.back()" class="mr-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded shadow">Quay lại</a>
                             <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded shadow">Thêm sản phẩm</button>
                         </div>
                     </form>
@@ -565,16 +564,11 @@ include "partials/header.php";
     </script>
     <script>
         document.querySelector('form').addEventListener('submit', function(event) {
-            // Lấy nội dung HTML từ WYSIWYG editor
             const wysiwygContent = document.getElementById('wysiwyg-example').innerHTML;
-
-            // Đặt nội dung vào trường input ẩn
             document.getElementById('wysiwyg-content').value = wysiwygContent;
-
-            // (Tùy chọn) Kiểm tra nếu nội dung trống và ngừng gửi nếu cần
             if (wysiwygContent.trim() === '') {
                 alert('Please enter some content!');
-                event.preventDefault(); // Ngừng gửi form nếu không có nội dung
+                event.preventDefault();
             }
         });
 
@@ -613,12 +607,10 @@ include "partials/header.php";
         import {
             Color
         } from 'https://esm.sh/@tiptap/extension-color@2.6.6';
-        import Bold from 'https://esm.sh/@tiptap/extension-bold@2.6.6'; // Import the Bold extension
-
+        import Bold from 'https://esm.sh/@tiptap/extension-bold@2.6.6';
 
         window.addEventListener('load', function() {
             if (document.getElementById("wysiwyg-example")) {
-
                 const FontSizeTextStyle = TextStyle.extend({
                     addAttributes() {
                         return {
@@ -638,7 +630,6 @@ include "partials/header.php";
                     },
                 });
                 const CustomBold = Bold.extend({
-                    // Override the renderHTML method
                     renderHTML({
                         mark,
                         HTMLAttributes
@@ -647,8 +638,6 @@ include "partials/header.php";
                             style,
                             ...rest
                         } = HTMLAttributes;
-
-                        // Merge existing styles with font-weight
                         const newStyle = 'font-weight: bold;' + (style ? ' ' + style : '');
 
                         return ['span', {
@@ -656,7 +645,6 @@ include "partials/header.php";
                             style: newStyle.trim()
                         }, 0];
                     },
-                    // Ensure it doesn't exclude other marks
                     addOptions() {
                         return {
                             ...this.parent?.(),
@@ -664,17 +652,14 @@ include "partials/header.php";
                         };
                     },
                 });
-                // tip tap editor setup
                 const editor = new Editor({
                     element: document.querySelector('#wysiwyg-example'),
                     extensions: [
-                        // Exclude the default Bold mark
                         StarterKit.configure({
                             marks: {
                                 bold: false,
                             },
                         }),
-                        // Include the custom Bold extension
                         CustomBold,
                         TextStyle,
                         Color,
@@ -701,15 +686,12 @@ include "partials/header.php";
                         },
                     }
                 });
-
-                // set up custom event listeners for the buttons
                 document.getElementById('toggleBoldButton').addEventListener('click', () => editor.chain().focus().toggleBold().run());
                 document.getElementById('toggleItalicButton').addEventListener('click', () => editor.chain().focus().toggleItalic().run());
                 document.getElementById('toggleUnderlineButton').addEventListener('click', () => editor.chain().focus().toggleUnderline().run());
                 document.getElementById('toggleStrikeButton').addEventListener('click', () => editor.chain().focus().toggleStrike().run());
                 document.getElementById('toggleHighlightButton').addEventListener('click', () => {
                     const isHighlighted = editor.isActive('highlight');
-                    // when using toggleHighlight(), judge if is is already highlighted.
                     editor.chain().focus().toggleHighlight({
                         color: isHighlighted ? undefined : '#ffc078' // if is already highlighted，unset the highlight color
                     }).run();
@@ -767,15 +749,12 @@ include "partials/header.php";
                         })
                     }
                 });
-
-                // typography dropdown
                 const typographyDropdown = FlowbiteInstances.getInstance('Dropdown', 'typographyDropdown');
 
                 document.getElementById('toggleParagraphButton').addEventListener('click', () => {
                     editor.chain().focus().setParagraph().run();
                     typographyDropdown.hide();
                 });
-
                 document.querySelectorAll('[data-heading-level]').forEach((button) => {
                     button.addEventListener('click', () => {
                         const level = button.getAttribute('data-heading-level');
@@ -787,55 +766,35 @@ include "partials/header.php";
                 });
 
                 const textSizeDropdown = FlowbiteInstances.getInstance('Dropdown', 'textSizeDropdown');
-
-                // Loop through all elements with the data-text-size attribute
                 document.querySelectorAll('[data-text-size]').forEach((button) => {
                     button.addEventListener('click', () => {
                         const fontSize = button.getAttribute('data-text-size');
-
-                        // Apply the selected font size via pixels using the TipTap editor chain
                         editor.chain().focus().setMark('textStyle', {
                             fontSize
                         }).run();
-
-                        // Hide the dropdown after selection
                         textSizeDropdown.hide();
                     });
                 });
-
-                // Listen for color picker changes
                 const colorPicker = document.getElementById('color');
                 colorPicker.addEventListener('input', (event) => {
                     const selectedColor = event.target.value;
-
-                    // Apply the selected color to the selected text
                     editor.chain().focus().setColor(selectedColor).run();
                 })
 
                 document.querySelectorAll('[data-hex-color]').forEach((button) => {
                     button.addEventListener('click', () => {
                         const selectedColor = button.getAttribute('data-hex-color');
-
-                        // Apply the selected color to the selected text
                         editor.chain().focus().setColor(selectedColor).run();
                     });
                 });
-
                 document.getElementById('reset-color').addEventListener('click', () => {
                     editor.commands.unsetColor();
                 })
-
                 const fontFamilyDropdown = FlowbiteInstances.getInstance('Dropdown', 'fontFamilyDropdown');
-
-                // Loop through all elements with the data-font-family attribute
                 document.querySelectorAll('[data-font-family]').forEach((button) => {
                     button.addEventListener('click', () => {
                         const fontFamily = button.getAttribute('data-font-family');
-
-                        // Apply the selected font size via pixels using the TipTap editor chain
                         editor.chain().focus().setFontFamily(fontFamily).run();
-
-                        // Hide the dropdown after selection
                         fontFamilyDropdown.hide();
                     });
                 });

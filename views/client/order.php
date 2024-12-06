@@ -1,7 +1,7 @@
 <?php require_once "partials/header.php" ?>
 
 <body class="mx-[8%]">
-    <?php require_once "partials/menu.php" ?>
+    <?php $this->menu(); ?>
     <article class="grid grid-cols-[4fr_1.5fr] gap-10 mt-4">
         <div>
             <div class="border w-full h-[96.6px] flex justify-center rounded-tl-[20px] rounded-br-[20px] ">
@@ -147,7 +147,6 @@
             </div>
     </article>
     <hr class="mt-10">
-
 </body>
 <?php require_once "partials/footer.php" ?>
 

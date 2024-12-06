@@ -18,7 +18,7 @@
                         ?>
                          <a href=" ?action=product&id=<?= urlencode($color['id']) ?>" class="block">
                              <div
-                                 class="rounded-full w-5 h-5 relative flex items-center justify-center <?= $isLight ? 'border border-gray-300' : '' ?>"
+                                 class="rounded-full w-4 h-4 relative flex items-center justify-center <?= $isLight ? 'border border-gray-300' : '' ?>"
                                  style="background-color: <?= $color['hex_color'] ?>;">
                                  <?php if ($isSelected): ?>
                                      <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 fill-current <?= $isLight ? 'text-gray-400' : 'text-white' ?>" viewBox="0 0 448 512">

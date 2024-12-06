@@ -7,10 +7,8 @@ class AdminModel
 
     public function __construct()
     {
-        $this->conn = connectDB(); // Kết nối cơ sở dữ liệu sử dụng PDO
+        $this->conn = connectDB();
     }
-
-    // Lấy tất cả người dùng
     public function getAllUser()
     {
         $query = "SELECT * FROM users";
@@ -19,8 +17,18 @@ class AdminModel
         $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $users;
     }
-
-    // Lấy tất cả categories
+    public function updateOrderStatus($orderId, $status)
+    {
+        $validStatuses = ['pending', 'processing', 'completed', 'cancelled'];
+        if (!in_array($status, $validStatuses)) {
+            return false;
+        }
+        $query = "UPDATE orders SET status = :status WHERE order_id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':status', $status);
+        $stmt->bindParam(':id', $orderId);
+        return $stmt->execute();
+    }
     public function getAllCategories()
     {
         $query = "SELECT * FROM categories";
@@ -29,8 +37,6 @@ class AdminModel
         $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $categories;
     }
-
-    // Lấy categories theo id
     public function getCategoriesById($id)
     {
         $query = "SELECT * FROM categories WHERE id = :id";
@@ -40,8 +46,6 @@ class AdminModel
         $category = $stmt->fetch(PDO::FETCH_ASSOC);
         return $category;
     }
-
-    // Lấy subcategories theo id
     public function getSubCategoriesById($id)
     {
         $query = "SELECT * FROM subcategories WHERE id = :id";
@@ -51,8 +55,6 @@ class AdminModel
         $sub_category = $stmt->fetch(PDO::FETCH_ASSOC);
         return $sub_category;
     }
-
-    // Lấy subcategories theo parent_category_id
     public function getSubCategoriesByParentCategoryId($parent_category_id)
     {
         $query = "SELECT * FROM subcategories WHERE parent_category_id = :parent_category_id";
@@ -62,8 +64,6 @@ class AdminModel
         $sub_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $sub_categories;
     }
-
-    // Lấy sub_subcategories theo parent_subcategory_id
     public function getSubSubCategoriesByParentSubcategoryId($parent_subcategory_id)
     {
         $query = "SELECT * FROM sub_subcategories WHERE parent_subcategory_id = :parent_subcategory_id";
@@ -73,8 +73,6 @@ class AdminModel
         $sub_sub_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $sub_sub_categories;
     }
-
-    // Lấy sub_subcategories theo id
     public function getSubSubCategoriesById($id)
     {
         $query = "SELECT * FROM sub_subcategories WHERE parent_subcategory_id = :id";
@@ -84,9 +82,7 @@ class AdminModel
         $sub_sub_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $sub_sub_categories;
     }
-
-    // Lấy thông tin người dùng cần chỉnh sửa
-    public function chinh_sua_nguoi_dung($id)
+    public function getUserById($id)
     {
         $query = "SELECT * FROM users WHERE id = :id";
         $stmt = $this->conn->prepare($query);
@@ -95,8 +91,6 @@ class AdminModel
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         return $user;
     }
-
-    // Lấy tất cả sản phẩm
     public function getAllProduct()
     {
         $query = "SELECT * FROM products";
@@ -132,6 +126,104 @@ class AdminModel
 
         return $data;
     }
+    public function getCountStock()
+    {
+        $sql = "SELECT SUM(stock) AS total FROM product_variants";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
+    public function getYearRevenue()
+    {
+        $currentYear = date('Y'); // Lấy năm hiện tại
+        $sql = "SELECT SUM(total_price) AS total 
+            FROM orders 
+            WHERE YEAR(order_date) = :year";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':year', $currentYear, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
+
+    public function getMonthlyRevenue()
+    {
+        $currentYear = date('Y'); // Lấy năm hiện tại
+        $currentMonth = date('m'); // Lấy tháng hiện tại
+        $sql = "SELECT SUM(total_price) AS total 
+            FROM orders 
+            WHERE YEAR(order_date) = :year AND MONTH(order_date) = :month";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':year', $currentYear, PDO::PARAM_INT);
+        $stmt->bindParam(':month', $currentMonth, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
+    public function total_orders_xuly()
+    {
+        $sql = "SELECT COUNT(*) AS total FROM orders WHERE status = 'pending'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
+    public function total_orders_dahuy()
+    {
+        $sql = "SELECT COUNT(*) AS total FROM orders WHERE status = 'cancelled'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
+    public function total_orders_hoanthanh()
+    {
+        $sql = "SELECT COUNT(*) AS total FROM orders WHERE status = 'completed'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
+    public function getTodayRevenue()
+    {
+        $currentDate = date('Y-m-d'); // Lấy ngày hiện tại
+        $sql = "SELECT SUM(total_price) AS total 
+            FROM orders 
+            WHERE DATE(order_date) = :date";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':date', $currentDate);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
+
+
+    public function getDoanhThu()
+    {
+        $sql = "SELECT SUM(total_price) AS total FROM orders";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
+    public function getCountUsers()
+    {
+        $sql = "SELECT COUNT(*) AS total_users FROM users";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total_users'] ?? 0;
+    }
+    public function getCountOrders()
+    {
+        $sql = "SELECT COUNT(*) AS total_orders FROM orders";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total_orders'] ?? 0;
+    }
+
     public function addProduct($name, $price, $sku_code, $short_description, $full_description, $sub_subcategory_id, $color, $colorchuan, $name_color)
     {
         $sql = "INSERT INTO products (name, price, sku_code, short_description, full_description, sub_subcategory_id, color, hex_color, name_color, time_add) 
@@ -152,12 +244,31 @@ class AdminModel
         // Lấy ID vừa thêm
         return $this->conn->lastInsertId();
     }
-public function getOrderById($id){
-    $sql = "SELECT * FROM orders WHERE id = :id";
-    $stmt = $this->conn->prepare($sql);
-    $stmt->execute([':id' => $id]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
+    public function getOrderById($id)
+    {
+        $sql = "SELECT * FROM orders WHERE order_id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function getMainProductImage($id)
+    {
+        $sql = "SELECT image_url FROM product_images WHERE product_id = ? AND is_main = 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['image_url'] : null;
+    }
+    public function getOrderDetailsByOrderId($order_id)
+    {
+        $query = "SELECT od.detail_id, od.order_id, od.product_id, od.size, od.quantity, od.price, p.name AS product_name, p.id AS product_id
+              FROM order_details od
+              JOIN products p ON od.product_id = p.id
+              WHERE od.order_id = :order_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':order_id' => $order_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function getAllOrders()
     {
         $sql = "SELECT * FROM orders";

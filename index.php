@@ -133,6 +133,10 @@ switch ($action) {
         $adminController->checkUser();
         $adminController->nhanh_con_con_categories();
         break;
+    case 'editstatusorder':
+        $adminController->checkUser();
+        $adminController->editStatusOrder();
+        break;
     case 'products':
         $adminController->checkUser();
         $adminController->products();

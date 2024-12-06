@@ -3,16 +3,50 @@
         margin-top: 70px;
     }
 </style>
+
 <header class="flex justify-between items-center py-4 bg-white fixed top-0 w-[84%] left-0 z-50 mx-[8%] shadow-sm">
     <div class="flex items-center">
-        <a href="#" class="text-sm font-semibold text-gray-800 mr-4 hover:text-red-500 transition-all duration-300">NỮ</a>
-        <a href="#" class="text-sm font-semibold text-gray-800 mr-4 hover:text-red-500 transition-all duration-300">NAM</a>
-        <a href="#" class="text-sm font-semibold text-gray-800 mr-4 hover:text-red-500 transition-all duration-300">TRẺ EM</a>
-        <a href="#" class="text-sm font-semibold text-[rgb(255,0,0)] mr-4">THÁNG VÀNG SĂN SALE</a>
+        <?php foreach ($categories as $category):
+            $subcategory = $this->WebModel->getSubCategoriesByParentCategoryId($category['id']);
+        ?>
+            <div class="relative group">
+                <a href="#" class="text-[14px] font-semibold text-gray-800 mr-4 hover:text-red-500 transition-all duration-300"><?= mb_convert_case(htmlspecialchars($category['name']), MB_CASE_UPPER, "UTF-8") ?></a>
+                <div class="absolute left-0 w-[800px] mt-2 bg-white border border-gray-200 rounded-lg shadow-lg p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out">
+                    <table class="w-auto">
+                        <thead>
+                            <tr>
+                                <?php foreach ($subcategory as $item):
+                                    $sub_sub_categories = $this->WebModel->getSubSubCategoriesByParentSubcategoryId($item['id']);
+                                ?>
+                                    <th class="text-left font-semibold text-sm">
+                                        <a href="?action=search"><?= htmlspecialchars($item['name']) ?></a>
+                                    </th>
+                                <?php endforeach; ?>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <?php foreach ($subcategory as $item):
+                                    $sub_sub_categories = $this->WebModel->getSubSubCategoriesByParentSubcategoryId($item['id']);
+                                ?>
+                                    <td class="text-left py-2 align-top">
+                                        <?php foreach ($sub_sub_categories as $sub_sub_category): ?>
+                                            <a href="#" class="block mb-2 h-auto min-w-[100px] text-sm pr-4"><?= htmlspecialchars($sub_sub_category['name']) ?></a>
+                                        <?php endforeach; ?>
+                                    </td>
+                                <?php endforeach; ?>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <?php endforeach; ?>
 
+        <a href="#" class="text-sm font-semibold text-[rgb(255,0,0)] mr-4">THÁNG VÀNG SĂN SALE</a>
         <a href="#" class="text-sm font-semibold text-gray-800 mr-4 hover:text-red-500 transition-all duration-300">BỘ SƯU TẬP</a>
         <a href="#" class="text-sm font-semibold text-gray-800 hover:text-red-500 transition-all duration-300">VỀ CHÚNG TÔI</a>
     </div>
+
     <div class="flex items-center">
         <a href="?action=home"><img src="./public/image/logo.png" alt="Logo" class="w-32 h-auto" /></a>
     </div>

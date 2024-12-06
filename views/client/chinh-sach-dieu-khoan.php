@@ -1,7 +1,7 @@
 <?php require_once "partials/header.php" ?>
 
 <body class="mx-[8%]">
-    <?php require_once "partials/menu.php" ?>
+    <?php $this->menu(); ?>
     <div class="flex gap-4 mb-[20px] mt-[90px] ">
         <div class="text-sm">Trang chủ</div>
         <div class="text-sm">-</div>
@@ -26,7 +26,6 @@
                         href="">Hệ thống cửa hàng</a> <br>
                     <a class=" leading-[15px] text-[14px] font-semibold text-gray-500 block hover:text-black"
                         href="">Q&A</a> <br>
-
                 </p>
             </div>
         </article>

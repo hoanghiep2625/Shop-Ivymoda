@@ -1,7 +1,7 @@
 <?php require_once "partials/header.php" ?>
 
 <body class="mx-[8%] ">
-    <?php require_once "partials/menu.php" ?>
+    <?php $this->menu(); ?>
     <article>
         <div class="grid grid-cols-[1fr_1.3fr_1fr] items-center justify-center">
             <div class="bg-[#D73831] text-white p-2 font-semibold text-center">SALE OFF 50%</div>

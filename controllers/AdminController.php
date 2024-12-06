@@ -16,6 +16,16 @@ class AdminController
     }
     public function thongke()
     {
+        $total_orders_xuly = $this->AdminModel->total_orders_xuly();
+        $total_orders_dahuy = $this->AdminModel->total_orders_dahuy();
+        $total_orders_hoanthanh = $this->AdminModel->total_orders_hoanthanh();
+        $today_revenue = $this->AdminModel->getTodayRevenue();
+        $monthly_revenue = $this->AdminModel->getMonthlyRevenue();
+        $year_revenue = $this->AdminModel->getYearRevenue();
+        $doanhthu = $this->AdminModel->getDoanhThu();
+        $total_orders = $this->AdminModel->getCountOrders();
+        $total_users = $this->AdminModel->getCountUsers();
+        $soluongsanpham = $this->AdminModel->getCountStock();
         include "./views/admin/thongke.php";
     }
     public function quan_ly_nguoi_dung()
@@ -37,10 +47,9 @@ class AdminController
     public function chinh_sua_nguoi_dung()
     {
         $id = $_GET['id'];
-        $user = $this->AdminModel->chinh_sua_nguoi_dung($id);
+        $user = $this->AdminModel->getUserById($id);
 
         $data = $this->loadLocationData();
-
         $city_id = htmlspecialchars($user['city']);
         $district_id = htmlspecialchars($user['district']);
         $commune_id = htmlspecialchars($user['commune']);
@@ -111,9 +120,34 @@ class AdminController
     }
     public function view_order()
     {
-        $id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : null;
-        $order = $this->AdminModel->getOrderById($id);
+        $order_id = isset($_GET['id']) ? filter_var($_GET['id'], FILTER_VALIDATE_INT) : null;
+        $order = $this->AdminModel->getOrderById($order_id);
+        $user = $this->AdminModel->getUserById($order['user_id']);
+        $data = $this->loadLocationData();
+        $city_id = htmlspecialchars($user['city']);
+        $district_id = htmlspecialchars($user['district']);
+        $commune_id = htmlspecialchars($user['commune']);
+        $city_name = $this->getCityNameById($city_id, $data);
+        $district_name = $this->getDistrictNameById($city_id, $district_id, $data);
+        $commune_name = $this->getCommuneNameById($city_id, $district_id, $commune_id, $data);
+        $orderDetails = $this->AdminModel->getOrderDetailsByOrderId($order_id);
         include "./views/admin/view_order.php";
+    }
+    public function editStatusOrder()
+    {
+        // Kiểm tra nếu có dữ liệu gửi lên từ AJAX
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['status']) && isset($_POST['order_id'])) {
+            $status = $_POST['status'];
+            $orderId = $_POST['order_id'];
+            $isUpdated = $this->AdminModel->updateOrderStatus($orderId, $status);
+            if ($isUpdated) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Không thể cập nhật trạng thái']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Dữ liệu không hợp lệ']);
+        }
     }
     public function nhanh_con_con_categories()
     {
@@ -183,7 +217,6 @@ class AdminController
                         'is_main' => $isMain,
                     ];
                 }
-                // Truyền danh sách ảnh vào model
                 $this->AdminModel->addProductImages($productId, $subimages);
             }
             header("Location: /products?success=true");

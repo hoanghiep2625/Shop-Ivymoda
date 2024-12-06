@@ -147,7 +147,7 @@
             transform: translateX(-50%) translateY(0);
         }
     </style>
-    <?php require_once "partials/menu.php" ?>
+    <?php $this->menu(); ?>
     <hr class="mb-8">
     <article class="grid grid-cols-[0.5fr_2.5fr] gap-16 mt-[90px]">
         <div class="">
@@ -279,12 +279,12 @@
         </div>
         <div>
             <div class="font-semibold text-2xl">
-                Kết quả tìm kiếm <?= $search ?>
+                Kết quả tìm kiếm
             </div>
             <?php
             unset($products);
             $products = $productFilterPrice;
-            $grid = 5;
+            $grid = 4;
             include 'partials/product_list.php';
             ?>
         </div>

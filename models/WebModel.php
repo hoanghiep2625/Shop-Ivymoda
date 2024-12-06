@@ -79,6 +79,32 @@ class WebModel
         $stmt->execute([$sku]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getSubCategoriesByParentCategoryId($parent_category_id)
+    {
+        $query = "SELECT * FROM subcategories WHERE parent_category_id = :parent_category_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':parent_category_id', $parent_category_id);
+        $stmt->execute();
+        $sub_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $sub_categories;
+    }
+    public function getSubSubCategoriesByParentSubcategoryId($parent_subcategory_id)
+    {
+        $query = "SELECT * FROM sub_subcategories WHERE parent_subcategory_id = :parent_subcategory_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':parent_subcategory_id', $parent_subcategory_id);
+        $stmt->execute();
+        $sub_sub_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $sub_sub_categories;
+    }
+    public function getAllCategories()
+    {
+        $query = "SELECT * FROM categories";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $categories;
+    }
     public function getViewedCount($user_id)
     {
         $query = "SELECT COUNT(*) FROM viewed_products WHERE user_id = :user_id";
