@@ -73,6 +73,22 @@ class AdminModel
         $sub_sub_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $sub_sub_categories;
     }
+    public function getDoanhThuTuNgayDenNgay($from_date, $to_date)
+    {
+        $sql = "SELECT SUM(total_price) AS doanhthu 
+            FROM orders 
+            WHERE order_date BETWEEN :from_date AND :to_date 
+            AND status = 'completed'";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':from_date', $from_date);
+        $stmt->bindParam(':to_date', $to_date);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['doanhthu'] ?? 0;
+    }
+
     public function getSubSubCategoriesById($id)
     {
         $query = "SELECT * FROM sub_subcategories WHERE parent_subcategory_id = :id";
@@ -146,6 +162,18 @@ class AdminModel
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'] ?? 0;
     }
+    public function getYearRevenuTT()
+    {
+        $currentYear = date('Y'); // Lấy năm hiện tại
+        $sql = "SELECT SUM(total_price) AS total 
+            FROM orders 
+            WHERE YEAR(order_date) = :year AND status = 'completed'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':year', $currentYear, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
 
     public function getMonthlyRevenue()
     {
@@ -154,6 +182,20 @@ class AdminModel
         $sql = "SELECT SUM(total_price) AS total 
             FROM orders 
             WHERE YEAR(order_date) = :year AND MONTH(order_date) = :month";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':year', $currentYear, PDO::PARAM_INT);
+        $stmt->bindParam(':month', $currentMonth, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
+    public function getMonthlyRevenueTT()
+    {
+        $currentYear = date('Y'); // Lấy năm hiện tại
+        $currentMonth = date('m'); // Lấy tháng hiện tại
+        $sql = "SELECT SUM(total_price) AS total 
+            FROM orders 
+            WHERE YEAR(order_date) = :year AND MONTH(order_date) = :month AND status = 'completed'";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':year', $currentYear, PDO::PARAM_INT);
         $stmt->bindParam(':month', $currentMonth, PDO::PARAM_INT);
@@ -197,11 +239,31 @@ class AdminModel
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total'] ?? 0;
     }
+    public function getTodayRevenueTT()
+    {
+        $currentDate = date('Y-m-d'); // Lấy ngày hiện tại
+        $sql = "SELECT SUM(total_price) AS total 
+            FROM orders 
+            WHERE DATE(order_date) = :date AND status = 'completed'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':date', $currentDate);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
 
 
     public function getDoanhThu()
     {
         $sql = "SELECT SUM(total_price) AS total FROM orders";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
+    }
+    public function getDoanhThuTT()
+    {
+        $sql = "SELECT SUM(total_price) AS total FROM orders WHERE status = 'completed'";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

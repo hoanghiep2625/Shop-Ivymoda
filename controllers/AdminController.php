@@ -16,18 +16,33 @@ class AdminController
     }
     public function thongke()
     {
+        $from_date = isset($_POST['from_date']) ? $_POST['from_date'] : null;
+        $to_date = isset($_POST['to_date']) ? $_POST['to_date'] : null;
+
+        if ($from_date && $to_date) {
+            $locdoanhthu = $this->AdminModel->getDoanhThuTuNgayDenNgay($from_date, $to_date);
+        } else {
+            $locdoanhthu = $this->AdminModel->getDoanhThuTT();
+        }
         $total_orders_xuly = $this->AdminModel->total_orders_xuly();
         $total_orders_dahuy = $this->AdminModel->total_orders_dahuy();
         $total_orders_hoanthanh = $this->AdminModel->total_orders_hoanthanh();
         $today_revenue = $this->AdminModel->getTodayRevenue();
         $monthly_revenue = $this->AdminModel->getMonthlyRevenue();
         $year_revenue = $this->AdminModel->getYearRevenue();
-        $doanhthu = $this->AdminModel->getDoanhThu();
         $total_orders = $this->AdminModel->getCountOrders();
         $total_users = $this->AdminModel->getCountUsers();
         $soluongsanpham = $this->AdminModel->getCountStock();
+        $doanhthu = $this->AdminModel->getDoanhThu();
+
+        $doanhthutt = $this->AdminModel->getDoanhThuTT();
+        $today_revenuett = $this->AdminModel->getTodayRevenueTT();
+        $monthly_revenuett = $this->AdminModel->getMonthlyRevenueTT();
+        $year_revenuett = $this->AdminModel->getYearRevenuTT();
+
         include "./views/admin/thongke.php";
     }
+
     public function quan_ly_nguoi_dung()
     {
         $users = $this->AdminModel->getAllUser();
@@ -135,7 +150,6 @@ class AdminController
     }
     public function editStatusOrder()
     {
-        // Kiểm tra nếu có dữ liệu gửi lên từ AJAX
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['status']) && isset($_POST['order_id'])) {
             $status = $_POST['status'];
             $orderId = $_POST['order_id'];

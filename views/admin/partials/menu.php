@@ -22,6 +22,6 @@
          </ul>
      </nav>
      <div class="p-4 border-t border-gray-700 text-center">
-         <a href="#" class="text-sm text-gray-400 hover:underline">Logout</a>
+         <a href="?action=logout" class="text-sm text-gray-400 hover:underline">Logout</a>
      </div>
  </aside>
