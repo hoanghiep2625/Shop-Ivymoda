@@ -73,6 +73,13 @@ class AdminModel
         $sub_sub_categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $sub_sub_categories;
     }
+    public function deleteProduct($id)
+    {
+        $query = "DELETE FROM products WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
+    }
     public function getDoanhThuTuNgayDenNgay($from_date, $to_date)
     {
         $sql = "SELECT SUM(total_price) AS doanhthu 

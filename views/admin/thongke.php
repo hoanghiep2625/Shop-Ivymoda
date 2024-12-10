@@ -29,7 +29,7 @@
                                 <input type="date"
                                     name="from_date"
                                     id="from_date"
-                                    value="<?= isset($_GET['from_date']) ? $_GET['from_date'] : '' ?>"
+                                    value="<?= isset($_POST['from_date']) ? $_POST['from_date'] : '' ?>"
                                     class="block w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                             </div>
                             <div>
@@ -39,7 +39,7 @@
                                 <input type="date"
                                     name="to_date"
                                     id="to_date"
-                                    value="<?= isset($_GET['to_date']) ? $_GET['to_date'] : '' ?>"
+                                    value="<?= isset($_POST['to_date']) ? $_POST['to_date'] : '' ?>"
                                     class="block w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                             </div>
                             <div class="flex items-end">

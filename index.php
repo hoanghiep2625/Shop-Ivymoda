@@ -141,6 +141,10 @@ switch ($action) {
         $adminController->checkUser();
         $adminController->products();
         break;
+    case 'delete_product':
+        $adminController->checkUser();
+        $adminController->delete_product();
+        break;
     case 'add_product':
         $adminController->checkUser();
         $adminController->add_product();

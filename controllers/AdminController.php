@@ -14,6 +14,12 @@ class AdminController
             return;
         }
     }
+    public function delete_product()
+    {
+        $id = $_GET['id'];
+        $this->AdminModel->deleteProduct($id);
+        header('location:?action=products');
+    }
     public function thongke()
     {
         $from_date = isset($_POST['from_date']) ? $_POST['from_date'] : null;
@@ -233,7 +239,7 @@ class AdminController
                 }
                 $this->AdminModel->addProductImages($productId, $subimages);
             }
-            header("Location: /products?success=true");
+            header("Location: ?action=products");
             exit();
         }
     }

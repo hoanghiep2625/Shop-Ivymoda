@@ -47,10 +47,6 @@
                                             class="text-white bg-blue-500 p-1 rounded-lg hover:underline">
                                             Edit
                                         </a>
-                                        <a href="?action=nhanh_con_con_categories&id=<?= urlencode($sub_sub_categorie['id']) ?>"
-                                            class="text-white bg-yellow-300 p-1 rounded-lg hover:underline">
-                                            Sản phẩm
-                                        </a>
                                         <a href="?action=nhanh_con_categories&id=<?= urlencode($sub_sub_categorie['id']) ?>"
                                             class="text-white bg-red-500 p-1 rounded-lg hover:underline">
                                             Xoá
