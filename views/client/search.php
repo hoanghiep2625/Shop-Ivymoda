@@ -270,7 +270,7 @@
                     </a>
                 </div>
                 <div>
-                    <p id="apply-filter-button" class="bg-black w-68 h-[50px] rounded-tl-2xl rounded-br-2xl flex items-center justify-center text-white text-base font-semibold hover:bg-white hover:text-black hover:border hover:border-black cursor-pointer transition duration-300">
+                    <p onclick="reload()" id="apply-filter-button" class="bg-black w-68 h-[50px] rounded-tl-2xl rounded-br-2xl flex items-center justify-center text-white text-base font-semibold hover:bg-white hover:text-black hover:border hover:border-black cursor-pointer transition duration-300">
                         LỌC
                     </p>
                 </div>
